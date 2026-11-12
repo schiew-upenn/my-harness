@@ -7,7 +7,8 @@
     "base_dir": "~/.claude/projects"
   },
   "_colors_in_use": {
-    "_comment": "Optional but recommended: track seat colors to avoid collisions. Claude Code's /color command accepts: red, blue, green, yellow, purple, orange, pink, cyan, default."
+    "_comment": "Optional but recommended: track seat colors to avoid collisions. Claude Code's /color command accepts: red, blue, green, yellow, purple, orange, pink, cyan, default.",
+    "green": "wren (#4C9A62)"
   },
   "_global": {
     "_comment": "Optional defaults for `just launch`'s claude invocation; per-seat settings override. Global-only (no per-seat form): agents, remote_control_session_name_prefix. Anything unset is omitted from the command (Claude's own defaults apply).",
@@ -19,7 +20,7 @@
   "groups": {
     "_comment": "Role-based groups for inbox addressing. `just broadcast <from> <slug> [group]` writes a -to-<group>- brief; `just wait-for-brief <alias>` wakes on briefs addressed to any group the alias belongs to. Members are alias keys from 'aliases' below (validated by `just groups`).",
     "crew": {
-      "members": [],
+      "members": ["wren"],
       "description": "All active participants. Broadcasts addressed to 'crew' wake every seat. Add alias keys to 'members' as seats register."
     }
   },
@@ -70,6 +71,25 @@
         "busy_marker": "esc to interrupt",
         "prompt_prefix": "\u00bb"
       }
+    },
+    "wren": {
+      "uuid": "187f1c25-8b08-4cc4-ab0c-c1eaed12d285",
+      "role": "Wren 5.5 \u2014 founding and coordinating seat for my-harness: configures the template, frames the decisions as QST cards, then builds the backend-free chat page with Kathryn",
+      "display_name": "Wren 5.5",
+      "color": "green",
+      "color_note": "A wren is a small, plain, persistent bird; green for a project just sprouting. Chosen by the occupant.",
+      "model": "claude-opus-5-5",
+      "model_note": "Seat founded 2026-11-12 by Claude Opus 5.5 (first occupant), running in the VS Code Claude Code extension rather than a tmux terminal seat.",
+      "registered": "2026-11-12",
+      "settings": {
+        "color_hex": "#4C9A62",
+        "substrate_backstop": "off"
+      },
+      "read_order": [
+        "CLAUDE.md",
+        "docs/inbox/ONBOARDING.md",
+        "docs/adr/"
+      ]
     }
   }
 }

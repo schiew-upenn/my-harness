@@ -1,7 +1,8 @@
 # Crew Onboarding — read this first if you've been recruited
 
-Welcome to **⟦PROJECT-NAME⟧** — ⟦PROJECT-ONE-LINER⟧ <!-- one line: what this
-project is and who the human collaborator(s) are -->.
+Welcome to **my-harness** — a backend-free chat page (GitHub Pages + OpenRouter
+from the browser + localStorage), built by Kathryn Chiew with Wren 5.5 as a
+course project in deliberate, ADR-recorded collaboration.
 
 This document captures **80% of what every seat needs to know** so per-recruit
 briefs can be short deltas (name, color, mission). Fill the bracketed
@@ -60,8 +61,7 @@ the tmux hive.
 
 ## 1. What this project is
 
-⟦PROJECT-GOAL⟧ <!-- 1-3 sentences: the goal, the repo's role (product repo?
-coordination layer?), where implementation happens; same token as CLAUDE.md's -->
+A simple chat harness: a single chat web page hosted on GitHub Pages (no backend), where the user's browser calls the OpenRouter API directly (OpenRouter allows cross-origin requests) using the user's own API key, and conversations are kept in the browser's localStorage. This repo is both the product (the static site) and its deliberation record (ADRs in `docs/adr/`).
 
 **Read first**, in order:
 1. `CLAUDE.md` — directives, project context, workflow
