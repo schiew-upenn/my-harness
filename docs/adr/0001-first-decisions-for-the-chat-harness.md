@@ -9,7 +9,7 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # First decisions for the chat harness
 
 - **Date**: 2026-11-12
-- **Iteration**: 1
+- **Iteration**: 2
 - **Status**: Draft
 - **Deciders**: Kathryn Chiew (human), Wren 5.5 (Claude Opus 5.5)
 
@@ -109,6 +109,25 @@ B
 
 ---
 
+### QST-FRAMEWORK: Which framework, now that the page uses one?
+- Status: unanswered
+- Why asking: Kathryn answered QST-STACK with **B** (a framework with a build step), but B named two candidates ("e.g. Vue or React"), so the answer leaves the actual toolkit open. Every file we write depends on it. With any of these, the page is built by Vite (the build tool) and published to https://schiew-upenn.github.io/my-harness/ by an automatic GitHub Actions job on each push. Follow-up to QST-STACK.
+- Need: pick a letter (or override — any shape answers)
+
+Options:
+- **A — Vue**: Each piece of the screen (chat list, message area, settings) is one `.vue` file holding its HTML, its JavaScript, and its own styles (scoped CSS: a component's styles can't leak onto the rest of the page). Reads close to plain HTML. It's the framework the course guide's own example project used.
+- **B — React**: The most widely used framework, and the most job-market demand. Screens are written in JSX (HTML-like markup inside JavaScript), which takes more getting used to; styles are handled separately (no built-in scoped CSS).
+- **C — Svelte**: Small and tidy; components look much like plain HTML. Fewer tutorials and examples than Vue or React.
+
+**Recommendation**: (by Wren 5.5, Claude Opus 5.5, 2026-11-12)
+
+**A — Vue.** *Rationale*: The course guide's example project was specified as "Vue using scoped CSS" (Step 5's mission text), so Vue matches what the course demonstrates and any examples your classmates follow. Vue's one-file-per-component layout (`ChatList.vue`, `MessageView.vue`, `SettingsPanel.vue`) is the easiest of the three to read with limited coding background, and scoped CSS keeps the sidebar's styles from breaking the chat area's. Testing works the same way in all three (Vitest), so that doesn't separate them. *Confidence*: 0.75 — because the course connection is concrete; this drops if the professor has a different framework in mind. *If wrong*: if the professor expects or prefers React, or you specifically want React for job-market reasons, this flips to **B**.
+
+**ANS:** (by Kathryn Chiew)
+[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+
+---
+
 ## Supporting Materials
 
 ### DOC: references
@@ -120,7 +139,23 @@ B
 
 ## Decision
 
-*Pending — filled in from the answers to QST-API-KEY, QST-STACK and QST-STORAGE.*
+### Context
+A backend-free chat page on GitHub Pages that calls OpenRouter from the browser and keeps its data in localStorage (the professor's prompt, above).
+
+### Chosen (answered by Kathryn Chiew, 2026-11-12)
+
+- **API key — QST-API-KEY = A, paste and remember.** The visitor pastes their OpenRouter key into a settings box; it is saved in localStorage, with a "Forget key" button. Supporting fact (Kathryn, in conversation): the professor hands each student an OpenRouter key, so users already have one — the recommendation's flip-to-C condition does not hold.
+- **Stack — QST-STACK = B, a framework with a build step** (Kathryn overrode the recommended A). Which framework is QST-FRAMEWORK, still open. Consequences regardless of framework: Vite builds the site; a GitHub Actions workflow builds and publishes to GitHub Pages on each push (the repo's Pages source must be set to "GitHub Actions"); `npm install` brings in packages, which are bundled into the site at build time — nothing loads from a third-party CDN, so QST-API-KEY's "no untrusted scripts" rule still holds.
+- **Storage — QST-STORAGE = B, a list of saved chats** (Kathryn overrode the recommended A). A sidebar of conversations: create, switch, rename, delete. Saved as one versioned localStorage record holding settings plus the list of chats (each with id, title, model, messages, timestamps).
+
+### Rules that follow from these
+- The API key is never written into any repository file, and is only ever sent to `openrouter.ai`.
+- AI replies are displayed as text, never inserted as raw HTML (a reply must not be able to run code next to the key).
+- The verification gate (`just gate`) gains the app's tests and build once the project is scaffolded.
+
+### Consequences
+- More to build than the recommended path: a framework project plus a chat sidebar. Worth it for the features Kathryn wants; keep the first version small (one model, no streaming) and grow.
+- Step 8 (ship it) includes turning on GitHub Actions publishing in the repo's Pages settings.
 
 ---
 
@@ -135,8 +170,10 @@ B
 
 ## Action Items
 
-- [ ] Answer QST-API-KEY, QST-STACK, QST-STORAGE - Owner: Kathryn Chiew
-- [ ] Fill the Decision section and bump the iteration - Owner: Wren 5.5
+- [x] Answer QST-API-KEY, QST-STACK, QST-STORAGE - Owner: Kathryn Chiew
+- [x] Fill the Decision section and bump the iteration - Owner: Wren 5.5
+- [ ] Answer QST-FRAMEWORK - Owner: Kathryn Chiew
+- [ ] Scaffold the project with the chosen framework; add its tests and build to `just gate` - Owner: Wren 5.5
 
 ---
 
@@ -154,6 +191,12 @@ B
 - Contributors: Kathryn Chiew (prompt), Wren 5.5 (framing, recommendations)
 - Changes: three decision questions with recommendations
 - Outcome: Draft; awaiting answers
+
+### Iteration 2 (2026-11-12)
+- Trigger: Kathryn answered all three questions (API-KEY A; STACK B, overriding the recommended A; STORAGE B, overriding the recommended A), plus a fact from class: the professor provides each student an OpenRouter key
+- Contributors: Kathryn Chiew (answers), Wren 5.5 (processing)
+- Changes: Decision section filled; QST-STACK's answer left the framework unnamed, so follow-up QST-FRAMEWORK minted (recommendation: Vue)
+- Outcome: stays Draft until QST-FRAMEWORK is answered
 
 ---
 
