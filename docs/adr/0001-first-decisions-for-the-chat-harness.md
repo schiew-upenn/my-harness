@@ -9,8 +9,8 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # First decisions for the chat harness
 
 - **Date**: 2026-11-12
-- **Iteration**: 2
-- **Status**: Draft
+- **Iteration**: 3
+- **Status**: Accepted
 - **Deciders**: Kathryn Chiew (human), Wren 5.5 (Claude Opus 5.5)
 
 **TL;DR**: Before any code, settle three things for the backend-free chat page — how the OpenRouter key gets in and where it lives, whether the page has a build step, and what localStorage remembers.
@@ -145,7 +145,8 @@ A backend-free chat page on GitHub Pages that calls OpenRouter from the browser 
 ### Chosen (answered by Kathryn Chiew, 2026-11-12)
 
 - **API key — QST-API-KEY = A, paste and remember.** The visitor pastes their OpenRouter key into a settings box; it is saved in localStorage, with a "Forget key" button. Supporting fact (Kathryn, in conversation): the professor hands each student an OpenRouter key, so users already have one — the recommendation's flip-to-C condition does not hold.
-- **Stack — QST-STACK = B, a framework with a build step** (Kathryn overrode the recommended A). Which framework is QST-FRAMEWORK, still open. Consequences regardless of framework: Vite builds the site; a GitHub Actions workflow builds and publishes to GitHub Pages on each push (the repo's Pages source must be set to "GitHub Actions"); `npm install` brings in packages, which are bundled into the site at build time — nothing loads from a third-party CDN, so QST-API-KEY's "no untrusted scripts" rule still holds.
+- **Stack — QST-STACK = B, a framework with a build step** (Kathryn overrode the recommended A).
+- **Framework — QST-FRAMEWORK = B, React** (Kathryn overrode the recommended Vue). Component styles use CSS Modules (`*.module.css`, built into Vite) — React's nearest equivalent of the scoped CSS the course example used: each component's class names are made unique so styles can't leak. Tests use Vitest. Consequences of the stack: Vite builds the site; a GitHub Actions workflow builds and publishes to GitHub Pages on each push (the repo's Pages source must be set to "GitHub Actions"); `npm install` brings in packages, which are bundled into the site at build time — nothing loads from a third-party CDN, so QST-API-KEY's "no untrusted scripts" rule still holds.
 - **Storage — QST-STORAGE = B, a list of saved chats** (Kathryn overrode the recommended A). A sidebar of conversations: create, switch, rename, delete. Saved as one versioned localStorage record holding settings plus the list of chats (each with id, title, model, messages, timestamps).
 
 ### Rules that follow from these
@@ -161,7 +162,8 @@ A backend-free chat page on GitHub Pages that calls OpenRouter from the browser 
 
 ## Open Follow-ups
 
-- [ ] Unverified assumption: OpenRouter accepts calls from a GitHub Pages origin. Verify with a tiny one-file test page before building the real one.
+- [x] ~~Unverified assumption~~ Verified 2026-11-12: OpenRouter accepts calls from a GitHub Pages origin. A CORS preflight (`OPTIONS https://openrouter.ai/api/v1/chat/completions` with `Origin: https://schiew-upenn.github.io`, method POST, headers authorization + content-type) returned `204` with `access-control-allow-origin: *` and both headers allowed (also `X-Title`, `HTTP-Referer`). A real keyed call is still to be tried from the running page.
+- [ ] Concern: the default model. Model ids on OpenRouter change over time and the professor's key may have a spending limit; v1 lets the user type any model id and defaults to `openrouter/auto` (OpenRouter picks a model). Revisit if costs surprise us — a cheaper fixed default or a model list fetched from OpenRouter.
 - [ ] Future task: streaming replies (words appearing as they're written) vs. waiting for the whole reply — decide after the first version works.
 - [ ] Future task: which model(s) to offer, and whether to show cost per message.
 - [ ] Concern: GitHub Pages for a *public* repo is public — anyone can open the page. That is fine as long as no key is ever in the code (see Assumptions).
@@ -172,7 +174,7 @@ A backend-free chat page on GitHub Pages that calls OpenRouter from the browser 
 
 - [x] Answer QST-API-KEY, QST-STACK, QST-STORAGE - Owner: Kathryn Chiew
 - [x] Fill the Decision section and bump the iteration - Owner: Wren 5.5
-- [ ] Answer QST-FRAMEWORK - Owner: Kathryn Chiew
+- [x] Answer QST-FRAMEWORK - Owner: Kathryn Chiew
 - [ ] Scaffold the project with the chosen framework; add its tests and build to `just gate` - Owner: Wren 5.5
 
 ---
@@ -197,6 +199,12 @@ A backend-free chat page on GitHub Pages that calls OpenRouter from the browser 
 - Contributors: Kathryn Chiew (answers), Wren 5.5 (processing)
 - Changes: Decision section filled; QST-STACK's answer left the framework unnamed, so follow-up QST-FRAMEWORK minted (recommendation: Vue)
 - Outcome: stays Draft until QST-FRAMEWORK is answered
+
+### Iteration 3 (2026-11-12)
+- Trigger: Kathryn answered QST-FRAMEWORK with B (React) and said "read and proceed"
+- Contributors: Kathryn Chiew (answer), Wren 5.5 (processing, CORS check)
+- Changes: framework recorded (React + Vite, CSS Modules, Vitest); CORS assumption verified by preflight; default-model concern logged
+- Outcome: `Draft → Accepted`; building starts
 
 ---
 
