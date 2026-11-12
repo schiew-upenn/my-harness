@@ -110,7 +110,7 @@ B
 ---
 
 ### QST-FRAMEWORK: Which framework, now that the page uses one?
-- Status: unanswered
+- Status: answered
 - Why asking: Kathryn answered QST-STACK with **B** (a framework with a build step), but B named two candidates ("e.g. Vue or React"), so the answer leaves the actual toolkit open. Every file we write depends on it. With any of these, the page is built by Vite (the build tool) and published to https://schiew-upenn.github.io/my-harness/ by an automatic GitHub Actions job on each push. Follow-up to QST-STACK.
 - Need: pick a letter (or override — any shape answers)
 
@@ -124,7 +124,7 @@ Options:
 **A — Vue.** *Rationale*: The course guide's example project was specified as "Vue using scoped CSS" (Step 5's mission text), so Vue matches what the course demonstrates and any examples your classmates follow. Vue's one-file-per-component layout (`ChatList.vue`, `MessageView.vue`, `SettingsPanel.vue`) is the easiest of the three to read with limited coding background, and scoped CSS keeps the sidebar's styles from breaking the chat area's. Testing works the same way in all three (Vitest), so that doesn't separate them. *Confidence*: 0.75 — because the course connection is concrete; this drops if the professor has a different framework in mind. *If wrong*: if the professor expects or prefers React, or you specifically want React for job-market reasons, this flips to **B**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+B
 
 ---
 
