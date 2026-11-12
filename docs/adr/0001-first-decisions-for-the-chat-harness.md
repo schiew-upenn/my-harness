@@ -53,7 +53,7 @@ The guide's recruitment mission asked: "Before you write any code: what are the 
 ## Questions
 
 ### QST-API-KEY: How does the visitor's OpenRouter key get into the page, and where is it kept?
-- Status: unanswered
+- Status: answered
 - Why asking: The page has no server, so the visitor's own API key has to live in their browser. That key can spend their money, so where it is kept is the main safety decision of the project. The answer shapes the settings screen and how careful the rest of the code must be.
 - Need: pick a letter (or override — any shape answers)
 
@@ -67,12 +67,12 @@ Options:
 **A — paste and remember.** *Rationale*: The prompt names localStorage as the storage, and A is the least code between "empty page" and "working chat." A's one weakness (scripts on our page could read the key) is handled by two rules we would follow anyway: load no third-party scripts, and put the AI's replies on screen as plain text, never as HTML, so a reply cannot inject code. C is a good later upgrade and can reuse A's storage unchanged. *Confidence*: 0.7 — because A is the standard pattern for bring-your-own-key static apps and its risks are known; I have not yet run OpenRouter's sign-in flow, so C's real cost is an estimate. *If wrong*: if the page is meant for classmates or other people who don't already have an OpenRouter key (or wouldn't know how to make one), this flips to **C**; if it will be used on shared lab computers, it flips to **B**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+A
 
 ---
 
 ### QST-STACK: Is the page plain files, or built with a framework and a build step?
-- Status: unanswered
+- Status: answered
 - Why asking: GitHub Pages can serve plain files as-is, or serve the output of a build tool (which then needs an automatic GitHub Actions job to build it on every push). This choice decides what files we write, how we test, and how "Ship it" (deploying to https://schiew-upenn.github.io/my-harness/) works.
 - Need: pick a letter (or override — any shape answers)
 
@@ -86,12 +86,12 @@ Options:
 **A — plain files, no build.** *Rationale*: A chat page is a message list, an input box, and a settings box — small enough that a framework adds more to learn than it saves. A deploys by just pushing, which keeps Chapter 3's Step 8 short. Node is already installed on this Mac (`node --version` → v26.0.0, checked 2026-11-12, though the setup notes said it wasn't), so `node --test` gives us real tests with zero dependencies, and the Fifth Directive's gate (`just gate`) can run them. C is ruled out mostly by QST-API-KEY's "no untrusted scripts" rule. *Confidence*: 0.75 — because the feature list in the prompt is short and fixed; it would drop if the interface is expected to grow a lot. *If wrong*: if the course expects a framework (the guide's own example used Vue), or the page grows past roughly one screen of controls (chat list, settings panels, markdown rendering), this flips to **B**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+B
 
 ---
 
 ### QST-STORAGE: What does the page remember in localStorage?
-- Status: unanswered
+- Status: answered
 - Why asking: "Storage in local storage" can mean very different amounts of app. Remembering one chat is a small feature; a list of saved chats (like the sidebar in ChatGPT) roughly doubles the interface. localStorage also has a size limit (about 5 MB per site), so long histories eventually need trimming.
 - Need: pick a letter (or override — any shape answers)
 
@@ -105,7 +105,7 @@ Options:
 **A — one saved chat, stored in a shape that can hold many.** *Rationale*: A delivers what the prompt asks (chats survive a reload) with the smallest interface. Saving it in a versioned format that already holds a *list* of chats (with just one in it) means moving to B later is purely an interface change — no saved data is lost or converted. C under-reads the prompt. *Confidence*: 0.6 — because this is mostly a product-taste call, which is yours, not mine. *If wrong*: if you'd want several chats going at once (say, one per class or topic), this flips to **B**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+B
 
 ---
 
