@@ -9,7 +9,7 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # Week 1 — Prompting and instructions
 
 - **Date**: 2026-11-12
-- **Iteration**: 2
+- **Iteration**: 3
 - **Status**: Accepted
 - **Deciders**: Kathryn Chiew (student), Wren 5.5 (Claude Opus 5.5, instructor)
 
@@ -119,8 +119,8 @@ Some prompts if you're stuck: How did the three answers differ in length, tone, 
 
 No pick, since this one is yours alone. *Rationale*: an instructor can't answer what the student noticed. *Confidence*: n/a — because there is no lean to be confident about. *If wrong*: n/a.
 
-**ANS:** (by Kathryn Chiew)
-i dont understand this?
+**ANS:** (by Kathryn Chiew, 2026-11-12, given in conversation after the experiment)
+The easiest was obviously the patient tutor. It used simpler words, for someone who is not technical.
 
 ---
 
@@ -146,8 +146,8 @@ When a chat has instructions, the page puts them first in the messages list as a
 ## Action Items
 
 - [ ] Read the lesson; answer QST-WHERE and QST-PRESETS - Owner: Kathryn Chiew
-- [ ] Build the Instructions feature with tests; deploy - Owner: Wren 5.5
-- [ ] Run the three-way experiment; answer QST-REFLECTION - Owner: Kathryn Chiew
+- [x] Build the Instructions feature with tests; deploy - Owner: Wren 5.5
+- [x] Run the three-way experiment; answer QST-REFLECTION - Owner: Kathryn Chiew
 
 ---
 
@@ -164,6 +164,12 @@ When a chat has instructions, the page puts them first in the messages list as a
 - Contributors: Kathryn Chiew (answers), Wren 5.5 (processing, build)
 - Changes: Decision recorded; Instructions feature built. Wren tried restoring the reflection's slot to the placeholder, but the ADR extension re-applied Kathryn's draft, so her text stands for now. It is a question, not a reflection; it was explained in conversation, and Kathryn replaces it with her real reflection after the experiment.
 - Outcome: `Draft → Accepted`; QST-REFLECTION's current "answered" is a placeholder state until then
+
+### Iteration 3 (2026-11-12)
+- Trigger: Kathryn ran the three-way experiment ("Explain recursion" under Plain, Patient tutor, Coding helper) on the live page and reported back in conversation
+- Contributors: Kathryn Chiew (experiment, reflection), Wren 5.5 (recording)
+- Changes: QST-REFLECTION answered with her words, replacing the earlier question; action items closed
+- Outcome: Week 1 complete — Accepted and done; next is Week 2 ("models & money")
 
 ---
 
