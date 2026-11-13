@@ -70,7 +70,7 @@ The AI has no memory between requests. Each time, it reads this list from the to
 ## Questions
 
 ### QST-WHERE: Should instructions apply to all chats, or can each chat have its own?
-- Status: unanswered
+- Status: answered
 - Why asking: The instructions are the "system" message the AI reads first. They can live in one place for everything, or be set per chat, so a "Tutor" chat and a "Code helper" chat behave differently side by side. This decides where the Instructions box appears and how the experiment works.
 - Need: pick a letter (or override — any shape answers)
 
@@ -83,12 +83,12 @@ Options:
 **B — each chat has its own.** *Rationale*: This week's experiment is "same question, three instructions, compare." With B that's three chats you can flip between in the sidebar; with A you'd have to keep editing Settings and remember earlier answers. B also matches how real AI products work (each assistant or agent has its own system prompt), which is where Weeks 3–8 go. It's a little more code than A (instructions saved with each chat, in `src/lib/chats.js`) but fits the week. *Confidence*: 0.7 — because the experiment is much clearer with B. *If wrong*: if one consistent behavior everywhere is all you want, take **A**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+B
 
 ---
 
 ### QST-PRESETS: Which ready-made instructions should the page offer?
-- Status: unanswered
+- Status: answered
 - Why asking: Writing good instructions from a blank box is hard on day one. Presets are ready-made instructions you pick with one click and can then edit. They also become the three sides of this week's experiment.
 - Need: pick a letter, several, or write your own (or override — any shape answers)
 
@@ -102,12 +102,12 @@ Options:
 **A — three presets.** *Rationale*: The three presets *are* the experiment: Plain shows the default, and Tutor and Coding helper show two very different directions, so the differences are easy to see. Everything stays editable, so you still practice writing your own. C's "save your own" is a nice extra, but it adds building beyond the 1–2 hour budget (ADR-0003 QST-PACE = A); it can be a stretch goal or come back later. *Confidence*: 0.7 — because A gives the experiment its three sides at the smallest size. *If wrong*: if you'd rather have presets that match your own courses (say, a "CIS 7000 study buddy"), tell me the presets you want; any list overrides mine.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+A
 
 ---
 
 ### QST-REFLECTION: After the experiment, what did you notice?
-- Status: deferred — answer after the build and the three-way experiment
+- Status: answered
 - Why asking: Reflection is where the week's learning becomes yours (ADR-0003, "How each week runs", step 4). Write it after you've compared the three answers to "Explain recursion".
 - Need: 2–3 sentences, in your own words
 
@@ -120,7 +120,7 @@ Some prompts if you're stuck: How did the three answers differ in length, tone, 
 No pick, since this one is yours alone. *Rationale*: an instructor can't answer what the student noticed. *Confidence*: n/a — because there is no lean to be confident about. *If wrong*: n/a.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+i dont understand this?
 
 ---
 
