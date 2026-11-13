@@ -196,6 +196,12 @@ A
 - Changes: Decision and weekly routine recorded; Syllabus panel built; Week 1 lesson plan written as ADR-0004
 - Outcome: `Draft → Accepted`
 
+### Iteration 3 (2026-11-12)
+- Trigger: after Week 1, Kathryn: *"but we didn't learn anything, you just asked me to prompt that but nothing else occured? there was no lesson taught"*
+- Contributors: Kathryn Chiew (the catch), Wren 5.5 (fix)
+- Changes: Week 1's lesson existed only as text inside ADR-0004; Kathryn was routed from decisions straight to building and the experiment, so the record held a lesson nobody had taught. Added step 1b: every week is taught in conversation, with a check question, before building.
+- Outcome: stays Accepted; routine amended
+
 ---
 
 ## Glossary (optional)
