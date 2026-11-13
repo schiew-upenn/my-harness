@@ -48,7 +48,7 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 ## Questions
 
 ### QST-CLASS-SHAPE: Where does each week's class happen?
-- Status: unanswered
+- Status: answered
 - Why asking: "Learn AI skills week by week" can be built two very different ways: you learning by *building things with me* in code (like this week), or a *tutor inside your chat page* that teaches you lessons in conversation. They lead to different work, so this sets the shape of everything else.
 - Need: pick a letter (or override — any shape answers)
 
@@ -62,12 +62,12 @@ Options:
 **A — build-along with Wren.** *Rationale*: Your answer stressed "every week I deploy or do something … I don't just mean create a website" — that's learning by building, which B can't give you (an AI in a chat window can explain automation, but can't set one up with you). This week already proved the A loop works: questions → your decisions → build → ship. C adds a nice dashboard but is extra building that teaches little; it can come later as a lesson of its own. *Confidence*: 0.75 — because your own words point at doing, not reading. *If wrong*: if what you mostly want is guided explanations you can go through on your own time, without building each week, this flips to **B**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+C ? so it's a full course
 
 ---
 
 ### QST-SYLLABUS: Does this draft syllabus look right, and where should it start?
-- Status: unanswered
+- Status: answered
 - Why asking: This is the "map" for what you don't know yet. The draft (in Supporting Materials below, "DOC: draft syllabus") goes from the basics of talking to AI models, through tools and automation like your professor's, to teams of AI agents. Each week depends a little on the ones before. You may want a different order or different topics.
 - Need: pick a letter (or override — any shape answers; you can also cross out or add weeks)
 
@@ -81,12 +81,12 @@ Options:
 **A — as drafted.** *Rationale*: Weeks 1–3 teach the three ideas every later week uses — instructions shape the AI (week 1), models differ in cost and quality (week 2), and AI can *call your code* (week 3, the core of every agent). Week 4's automation is much easier to understand and debug once those are familiar. Weeks 1–2 also deliver the chat-page upgrades you already chose in ADR-0002 (dropdown, formatting, balance), so nothing you picked is wasted. *Confidence*: 0.65 — because the order follows how the ideas depend on each other, but motivation matters too and you know yours. *If wrong*: if what keeps you going is seeing the "wow" first, flip to **B** — Week 4 can be done first with me filling in the background as we go.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+A
 
 ---
 
 ### QST-PACE: How much time can you give the class each week?
-- Status: unanswered
+- Status: answered
 - Why asking: Only you know this, and it decides how big each week's lesson should be. A lesson that's too big gets abandoned halfway; too small feels pointless. The guide recommends telling the collaborator constraints it can't know — this is the biggest one.
 - Need: pick a letter, or give a number of hours (or override — any shape answers)
 
@@ -100,12 +100,12 @@ Options:
 **C — a short core with optional extras.** *Rationale*: Student weeks are uneven (exams, deadlines), and a fixed size will be wrong in some weeks. A one-hour core means you always finish something and ship it; extras let good weeks go deeper. *Confidence*: 0.5 — because this is your schedule, not something I can know. *If wrong*: if you'd rather commit to a fixed amount and plan around it, take **A** or **B** to match it.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+A
 
 ---
 
 ### QST-COURSE-RULES: How should the class fit with your professor's rules for the chat page?
-- Status: unanswered
+- Status: answered
 - Why asking: The professor's assignment says the chat page is GitHub Pages only, with no backend (ADR-0001). Some weeks — automation especially — need something that runs when your browser is closed (for example, a scheduled GitHub Actions job keeping your key in GitHub's secret storage). That's fine for a learning project, but it isn't "GitHub Pages only," so it shouldn't quietly change the assignment repo.
 - Need: pick a letter (or override — any shape answers)
 
@@ -119,7 +119,7 @@ Options:
 **A — separate projects for outside-the-page weeks.** *Rationale*: It keeps your assignment exactly what the professor asked for (nothing graded gets surprising extras), and each new repo from the template rehearses the setup you learned this week — `CLAUDE.md` now records that your course wants the template reused (Project-Specific Notes). *Confidence*: 0.7 — because it protects the assignment and doubles as practice. *If wrong*: if the professor says extra work should live in the same repo (or should be shown together), flip to **B**; if you're unsure whether extra repos are welcome at all, **C**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+A
 
 ---
 

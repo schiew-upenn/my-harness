@@ -145,7 +145,7 @@ B
 ---
 
 ### QST-THEME: Which feel should the full theme have — and what's the page called?
-- Status: unanswered
+- Status: answered
 - Why asking: Kathryn answered QST-LOOK with **B (a full theme)**, whose option said "you describe the feel; I propose it, and you approve before it's built" — the feel and name are still open. Follow-up to QST-LOOK.
 - Need: pick a letter (or describe your own feel), and a name if you want one (or override — any shape answers)
 
@@ -160,7 +160,7 @@ Options:
 **C — retro terminal.** *Rationale*: ADR-0003 makes this page your workbench for a class in building AI tools, and a terminal look fits a builder's workshop; it's also the most distinctive, so the page reads as yours at a glance. All four are equally easy to build, since the colors live in one list in `src/index.css`. *Confidence*: 0.35 — because this is pure taste, and mine shouldn't count for much here. *If wrong*: any feel you describe replaces this pick — a color you love, a site whose look you like, anything.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+A
 
 ---
 
