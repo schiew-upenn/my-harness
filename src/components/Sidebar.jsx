@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styles from './Sidebar.module.css';
 
 export default function Sidebar({
-  chats, activeChatId, open, onClose, onNewChat, onSelect, onRename, onDelete, onOpenSettings,
+  chats, activeChatId, open, onClose, onNewChat, onSelect, onRename, onDelete, onOpenSettings, onOpenCourse,
 }) {
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState('');
@@ -68,6 +68,9 @@ export default function Sidebar({
           ))}
         </ul>
 
+        <button type="button" className={styles.settings} onClick={onOpenCourse}>
+          📚 Course
+        </button>
         <button type="button" className={styles.settings} onClick={onOpenSettings}>
           ⚙ Settings
         </button>

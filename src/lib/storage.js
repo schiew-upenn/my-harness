@@ -3,7 +3,8 @@
 // QST-STORAGE = B: a list of saved chats).
 //
 // Everything lives under ONE key as ONE versioned JSON record:
-//   { version: 1, settings: { apiKey, model }, chats: [...], activeChatId }
+//   { version: 1, settings: { apiKey, model }, chats: [...], activeChatId,
+//     course: { done: [weekIds] } }   ← course added by docs/adr/0003
 // The `version` lets a future change of shape be detected instead of misread.
 //
 // Functions take the storage object as a parameter (window.localStorage in the
@@ -18,6 +19,7 @@ export function emptyState() {
     settings: { apiKey: '', model: DEFAULT_MODEL },
     chats: [],
     activeChatId: null,
+    course: { done: [] },
   };
 }
 
@@ -63,6 +65,12 @@ export function loadState(storage) {
     ...fresh,
     ...parsed,
     settings: { ...fresh.settings, ...parsed.settings },
+    // Data saved before the course existed has no `course`; start it empty.
+    course: {
+      ...fresh.course,
+      ...parsed.course,
+      done: Array.isArray(parsed.course?.done) ? parsed.course.done : [],
+    },
   };
 }
 

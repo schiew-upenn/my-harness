@@ -7,6 +7,8 @@ import {
   activeChat, addChat, appendMessage, deleteChat, newChat, renameChat, selectChat, updateSettings,
 } from './lib/chats.js';
 import { sendChat } from './lib/openrouter.js';
+import { toggleDone } from './lib/syllabus.js';
+import SyllabusPanel from './components/SyllabusPanel.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import ChatView from './components/ChatView.jsx';
 import SettingsPanel from './components/SettingsPanel.jsx';
@@ -20,6 +22,7 @@ export default function App() {
   // First visit (no key yet): open Settings straight away.
   const [settingsOpen, setSettingsOpen] = useState(() => !state.settings.apiKey);
   const [sidebarOpen, setSidebarOpen] = useState(false); // small screens only
+  const [courseOpen, setCourseOpen] = useState(false);
 
   useEffect(() => {
     const result = saveState(window.localStorage, state);
@@ -89,6 +92,10 @@ export default function App() {
         onRename={(id, title) => setState((s) => renameChat(s, id, title))}
         onDelete={(id) => setState((s) => deleteChat(s, id))}
         onOpenSettings={() => setSettingsOpen(true)}
+        onOpenCourse={() => {
+          setCourseOpen(true);
+          setSidebarOpen(false);
+        }}
       />
 
       <main className={styles.main}>
@@ -125,6 +132,14 @@ export default function App() {
           onSend={handleSend}
         />
       </main>
+
+      {courseOpen && (
+        <SyllabusPanel
+          done={state.course.done}
+          onToggle={(id) => setState((s) => toggleDone(s, id))}
+          onClose={() => setCourseOpen(false)}
+        />
+      )}
 
       {settingsOpen && (
         <SettingsPanel
