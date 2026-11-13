@@ -29,6 +29,7 @@
 }
 
 .model {
+  font-family: var(--mono);
   font-size: 0.8rem;
   color: var(--muted);
   border: 1px solid var(--border);

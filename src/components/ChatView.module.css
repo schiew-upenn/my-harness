@@ -44,8 +44,9 @@
 .bubble {
   white-space: pre-wrap; /* keep the line breaks of replies, as plain text */
   overflow-wrap: anywhere;
-  padding: 10px 14px;
-  border-radius: 18px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   max-width: 85%;
 }
 
