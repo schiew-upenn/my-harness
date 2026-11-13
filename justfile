@@ -526,8 +526,10 @@ gate:
     set -euo pipefail
     just instantiate-check
     python3 scripts/groups-lookup.py --validate
-    # ADD YOUR PROJECT'S OWN GATE HERE when it exists (test suite, build, linter)
-    echo "✅ gate green (day-one checks; project gate slot above)"
+    # Project gate (docs/adr/0001): the chat app's tests, then a production build
+    npm test
+    npm run build
+    echo "✅ gate green (day-one checks + app tests + build)"
 
 # Is this instance fully instantiated? Greps for remaining ⟦SIGIL⟧ placeholders
 # (the closed registry: docs/adr/templates/placeholders.yaml) and warns on

@@ -92,7 +92,7 @@ Before serving any change:
 2. Fix any failures before committing
 3. Never serve changes with a failing gate
 
-**Why**: Today (no app code yet) `just gate` catches unfilled template placeholders and a malformed crew registry — the two ways this repo's configuration can silently rot. When the chat app's code lands, its test suite joins the gate's marked slot in the `justfile` (which tests, and how they run, is settled by the stack decision in ADR-0001); until then the gate honestly checks only configuration, and says so.
+**Why**: `just gate` runs (1) the template checks — unfilled placeholders, a malformed crew registry — then (2) the chat app's Vitest suite (`npm test`: saving/loading in localStorage without losing data, the chat list's create/rename/delete rules, and the OpenRouter request — key only in the header, only to openrouter.ai, plain-language errors for a bad key or a used-up $10 cap), then (3) a production build (`npm run build`), the same steps the GitHub Pages deploy runs. **Known exception (2026-11-12)**: `instantiate-check` exits 2 on a kintsugi warning (`kintsugi.yaml` without `kintsugi.lock`; the kintsugi tool isn't installed), which stops `just gate` before the app checks. Until that's resolved, run `npm test && npm run build` alongside `just gate` and treat only the kintsugi line as known-red.
 
 **Process**:
 ```bash
@@ -249,10 +249,10 @@ If the script was successfully used, append as comments how, and what the outcom
 A simple chat harness: a single chat web page hosted on GitHub Pages (no backend), where the user's browser calls the OpenRouter API directly (OpenRouter allows cross-origin requests) using the user's own API key, and conversations are kept in the browser's localStorage. This repo is both the product (the static site) and its deliberation record (ADRs in `docs/adr/`).
 
 ### Current focus:
-Settling the first decisions before any code — API-key handling, build approach, and conversation storage (ADR-0001).
+First version of the chat page built (React + Vite in `src/`); next is the guide's Step 8 — push to `schiew-upenn/my-harness` and turn on GitHub Pages (Source: GitHub Actions).
 
 ### Key decisions made:
-*(List ADRs here as they land, e.g. `- Auth approach — see docs/adr/0001-*.md`. Empty at birth is healthy.)*
+- API key pasted once and remembered in localStorage; React + Vite with CSS Modules; a sidebar list of saved chats — see `docs/adr/0001-first-decisions-for-the-chat-harness.md`
 
 ### Open questions:
 ```bash
