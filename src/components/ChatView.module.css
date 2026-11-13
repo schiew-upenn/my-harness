@@ -45,7 +45,7 @@
   white-space: pre-wrap; /* keep the line breaks of replies, as plain text */
   overflow-wrap: anywhere;
   padding: 10px 14px;
-  border-radius: 14px;
+  border-radius: 18px;
   max-width: 85%;
 }
 
@@ -54,8 +54,7 @@
 }
 
 .assistant .bubble {
-  background: var(--panel);
-  border: 1px solid var(--border);
+  background: var(--assistant-bubble);
 }
 
 .meta {
@@ -97,14 +96,14 @@
   resize: none;
   padding: 10px 12px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--bg);
 }
 
 .send {
   padding: 0 18px;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--accent);
   color: var(--accent-text);
   font-weight: 600;
