@@ -50,13 +50,24 @@
 .select {
   flex: 1;
   min-width: 0;
-  padding: 8px;
+  padding: 6px 8px;
   background: none;
   border: none;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatTitle,
+.chatSub {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.chatSub {
+  font-size: 0.75rem;
+  color: var(--muted);
 }
 
 .icon {

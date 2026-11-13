@@ -23,6 +23,13 @@ export default function SyllabusPanel({ done, onToggle, onClose }) {
           </button>
         </header>
 
+        <div className={styles.howto}>
+          <strong>How to start a week:</strong> this page is your progress tracker — the lessons happen with your AI
+          collaborator (Wren) in VS Code. Open your <code>my-harness</code> project, and in the Claude panel type{' '}
+          <code>{next ? `start ${next.label}` : 'what next?'}</code>. Wren writes that week's lesson as a record,
+          you answer its questions, you build it together, then you tick it off here.
+        </div>
+
         <ol className={styles.list}>
           {SYLLABUS.map((w) => {
             const isDone = done.includes(w.id);

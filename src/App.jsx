@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 import { loadState, saveState } from './lib/storage.js';
 import {
-  activeChat, addChat, appendMessage, deleteChat, newChat, renameChat, selectChat, updateSettings,
+  activeChat, addChat, appendMessage, deleteChat, newChat, renameChat, selectChat, setInstructions, updateSettings,
 } from './lib/chats.js';
 import { sendChat } from './lib/openrouter.js';
 import { toggleDone } from './lib/syllabus.js';
@@ -31,8 +31,13 @@ export default function App() {
 
   const chat = activeChat(state);
 
+  // New chats start with the default instructions chosen in Settings (Week 1).
+  function freshChat(s) {
+    return newChat(s.settings.model, Date.now(), undefined, s.settings.defaultInstructions ?? '');
+  }
+
   function handleNewChat() {
-    setState((s) => addChat(s, newChat(s.settings.model)));
+    setState((s) => addChat(s, freshChat(s)));
     setSendError(null);
     setSidebarOpen(false);
   }
@@ -49,7 +54,7 @@ export default function App() {
     let next = state;
     let chatId = chat?.id;
     if (!chatId) {
-      const created = newChat(state.settings.model);
+      const created = freshChat(state);
       next = addChat(next, created);
       chatId = created.id;
     }
@@ -58,12 +63,13 @@ export default function App() {
     setSendError(null);
     setSendingChatId(chatId);
 
-    const messages = next.chats.find((c) => c.id === chatId).messages;
+    const sending = next.chats.find((c) => c.id === chatId);
     try {
       const answer = await sendChat({
         apiKey: next.settings.apiKey,
         model: next.settings.model,
-        messages,
+        messages: sending.messages,
+        instructions: sending.instructions ?? '',
       });
       setState((s) =>
         appendMessage(s, chatId, {
@@ -130,6 +136,7 @@ export default function App() {
           busy={sendingChatId !== null}
           error={sendError}
           onSend={handleSend}
+          onInstructionsChange={(text) => chat && setState((s) => setInstructions(s, chat.id, text))}
         />
       </main>
 

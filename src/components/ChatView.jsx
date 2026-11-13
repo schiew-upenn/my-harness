@@ -2,9 +2,10 @@
 // Replies are shown as plain text — React escapes it — and never inserted as
 // HTML, so a reply can't run code on the page that holds the key (ADR-0001).
 import { useEffect, useRef, useState } from 'react';
+import InstructionsBar from './InstructionsBar.jsx';
 import styles from './ChatView.module.css';
 
-export default function ChatView({ chat, waitingHere, busy, error, onSend }) {
+export default function ChatView({ chat, waitingHere, busy, error, onSend, onInstructionsChange }) {
   const [draft, setDraft] = useState('');
   const endRef = useRef(null);
   const messages = chat?.messages ?? [];
@@ -22,6 +23,7 @@ export default function ChatView({ chat, waitingHere, busy, error, onSend }) {
 
   return (
     <section className={styles.chat}>
+      {chat && <InstructionsBar instructions={chat.instructions ?? ''} onChange={onInstructionsChange} />}
       <div className={styles.messages}>
         {messages.length === 0 && !waitingHere && (
           <div className={styles.empty}>

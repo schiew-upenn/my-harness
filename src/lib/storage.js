@@ -16,7 +16,8 @@ export const DEFAULT_MODEL = 'openrouter/auto';
 export function emptyState() {
   return {
     version: 1,
-    settings: { apiKey: '', model: DEFAULT_MODEL },
+    // defaultInstructions: what new chats start with (docs/adr/0004)
+    settings: { apiKey: '', model: DEFAULT_MODEL, defaultInstructions: '' },
     chats: [],
     activeChatId: null,
     course: { done: [] },

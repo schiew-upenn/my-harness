@@ -1,6 +1,7 @@
 // The list of saved chats (docs/adr/0001, QST-STORAGE = B): new, switch,
 // rename, delete. On small screens it slides in from the left.
 import { useState } from 'react';
+import { instructionsLabel } from '../lib/presets.js';
 import styles from './Sidebar.module.css';
 
 export default function Sidebar({
@@ -47,7 +48,8 @@ export default function Sidebar({
               ) : (
                 <>
                   <button type="button" className={styles.select} onClick={() => onSelect(c.id)} title={c.title}>
-                    {c.title}
+                    <span className={styles.chatTitle}>{c.title}</span>
+                    <span className={styles.chatSub}>{instructionsLabel(c.instructions)}</span>
                   </button>
                   <button type="button" className={styles.icon} onClick={() => startRename(c)} aria-label={`Rename “${c.title}”`}>
                     ✎

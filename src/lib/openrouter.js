@@ -15,7 +15,10 @@ export class ChatError extends Error {
   }
 }
 
-export function buildRequest({ apiKey, model, messages }) {
+export function buildRequest({ apiKey, model, messages, instructions = '' }) {
+  // Week 1 (docs/adr/0004): a chat's instructions go FIRST, as a "system"
+  // message. Blank instructions send no system message at all ("Plain").
+  const system = instructions.trim() ? [{ role: 'system', content: instructions.trim() }] : [];
   return {
     url: OPENROUTER_URL,
     init: {
@@ -29,7 +32,7 @@ export function buildRequest({ apiKey, model, messages }) {
         model,
         // Our saved messages carry extra fields (createdAt, model); the API
         // only needs who said it and what was said.
-        messages: messages.map(({ role, content }) => ({ role, content })),
+        messages: [...system, ...messages.map(({ role, content }) => ({ role, content }))],
       }),
     },
   };
@@ -51,12 +54,12 @@ export function friendlyError(status, body) {
   }
 }
 
-export async function sendChat({ apiKey, model, messages, fetchImpl = globalThis.fetch, signal }) {
+export async function sendChat({ apiKey, model, messages, instructions = '', fetchImpl = globalThis.fetch, signal }) {
   if (!apiKey) {
     throw new ChatError('Add your OpenRouter key in Settings first.');
   }
 
-  const { url, init } = buildRequest({ apiKey, model, messages });
+  const { url, init } = buildRequest({ apiKey, model, messages, instructions });
 
   let res;
   try {

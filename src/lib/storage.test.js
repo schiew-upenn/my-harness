@@ -25,7 +25,7 @@ describe('loading and saving', () => {
     const storage = fakeStorage();
     const before = {
       ...emptyState(),
-      settings: { apiKey: 'sk-or-test', model: 'some/model' },
+      settings: { ...emptyState().settings, apiKey: 'sk-or-test', model: 'some/model' },
       chats: [{ id: 'c1', title: 'Hello', messages: [{ role: 'user', content: 'hi' }] }],
       activeChatId: 'c1',
     };

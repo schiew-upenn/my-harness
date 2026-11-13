@@ -11,11 +11,12 @@ export function makeId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
-export function newChat(model, now = Date.now(), id = makeId()) {
+export function newChat(model, now = Date.now(), id = makeId(), instructions = '') {
   return {
     id,
     title: NEW_CHAT_TITLE,
     autoTitle: true, // becomes false once titled from the first message, or renamed
+    instructions, // this chat's own system message (docs/adr/0004, QST-WHERE = B)
     model,
     messages: [],
     createdAt: now,
@@ -78,6 +79,13 @@ export function appendMessage(state, chatId, message, now = Date.now()) {
         updatedAt: now,
       };
     }),
+  };
+}
+
+export function setInstructions(state, chatId, instructions) {
+  return {
+    ...state,
+    chats: state.chats.map((c) => (c.id === chatId ? { ...c, instructions } : c)),
   };
 }
 

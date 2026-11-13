@@ -2,12 +2,16 @@
 // paste once, remembered in this browser, with a "Forget key" button).
 import { useState } from 'react';
 import { DEFAULT_MODEL } from '../lib/storage.js';
+import { PRESETS } from '../lib/presets.js';
 import styles from './SettingsPanel.module.css';
 
 export default function SettingsPanel({ settings, onSave, onForgetKey, onClose }) {
   const [apiKey, setApiKey] = useState(settings.apiKey);
   const [model, setModel] = useState(settings.model);
   const [showKey, setShowKey] = useState(false);
+  const [defaultPreset, setDefaultPreset] = useState(
+    () => PRESETS.find((p) => p.text === (settings.defaultInstructions ?? ''))?.id ?? 'plain',
+  );
 
   return (
     <div className={styles.backdrop} onClick={onClose}>
@@ -16,7 +20,11 @@ export default function SettingsPanel({ settings, onSave, onForgetKey, onClose }
         onClick={(e) => e.stopPropagation()}
         onSubmit={(e) => {
           e.preventDefault();
-          onSave({ apiKey: apiKey.trim(), model: model.trim() || DEFAULT_MODEL });
+          onSave({
+            apiKey: apiKey.trim(),
+            model: model.trim() || DEFAULT_MODEL,
+            defaultInstructions: PRESETS.find((p) => p.id === defaultPreset)?.text ?? '',
+          });
         }}
         aria-label="Settings"
       >
@@ -64,6 +72,23 @@ export default function SettingsPanel({ settings, onSave, onForgetKey, onClose }
           </a>
           .
         </p>
+
+        <label className={styles.label} htmlFor="default-instructions">
+          New chats start with
+        </label>
+        <select
+          id="default-instructions"
+          className={styles.input}
+          value={defaultPreset}
+          onChange={(e) => setDefaultPreset(e.target.value)}
+        >
+          {PRESETS.map((p) => (
+            <option key={p.id} value={p.id}>
+              {p.name}
+            </option>
+          ))}
+        </select>
+        <p className={styles.note}>Each chat can change its own instructions with the bar at the top of the chat.</p>
 
         <div className={styles.actions}>
           <button
