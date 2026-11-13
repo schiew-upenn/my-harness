@@ -9,8 +9,8 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # Week 1 — Prompting and instructions
 
 - **Date**: 2026-11-12
-- **Iteration**: 1
-- **Status**: Draft
+- **Iteration**: 2
+- **Status**: Accepted
 - **Deciders**: Kathryn Chiew (student), Wren 5.5 (Claude Opus 5.5, instructor)
 
 **TL;DR**: Week 1 of the AI-building course: learn how the instructions an AI reads *before* your message shape every answer, then add an Instructions feature to the chat page and test it with a three-way experiment (~1–2 hours, under $0.05 of the key).
@@ -126,7 +126,13 @@ i dont understand this?
 
 ## Decision
 
-*Pending — filled in from QST-WHERE and QST-PRESETS.*
+### Chosen (answered by Kathryn Chiew, 2026-11-12)
+
+- **QST-WHERE = B, each chat has its own instructions.** An Instructions bar at the top of each chat; the chat saves its instructions with its messages; new chats start from a default chosen in Settings. The sidebar shows which preset each chat uses, so the three experiment chats are easy to tell apart.
+- **QST-PRESETS = A, three presets**: Patient tutor, Coding helper, Plain (no instructions). Picking one fills the box; the text stays editable.
+
+### How it works
+When a chat has instructions, the page puts them first in the messages list as a `system` message (`src/lib/openrouter.js`); an empty box sends no system message at all, which is what "Plain" means.
 
 ---
 
@@ -152,6 +158,12 @@ i dont understand this?
 - Contributors: Wren 5.5 (lesson plan)
 - Changes: lesson, plan, two decisions, one deferred reflection
 - Outcome: Draft; awaiting Kathryn's decisions
+
+### Iteration 2 (2026-11-12)
+- Trigger: Kathryn answered WHERE (B) and PRESETS (A), wrote "i dont understand this?" in the reflection slot, and said "read and proceed"
+- Contributors: Kathryn Chiew (answers), Wren 5.5 (processing, build)
+- Changes: Decision recorded; Instructions feature built. Wren tried restoring the reflection's slot to the placeholder, but the ADR extension re-applied Kathryn's draft, so her text stands for now. It is a question, not a reflection; it was explained in conversation, and Kathryn replaces it with her real reflection after the experiment.
+- Outcome: `Draft → Accepted`; QST-REFLECTION's current "answered" is a placeholder state until then
 
 ---
 

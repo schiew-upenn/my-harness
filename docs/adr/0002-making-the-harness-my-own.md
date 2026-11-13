@@ -9,7 +9,7 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # Making the harness my own
 
 - **Date**: 2026-11-12
-- **Iteration**: 3
+- **Iteration**: 4
 - **Status**: Accepted
 - **Deciders**: Kathryn Chiew (human), Wren 5.5 (Claude Opus 5.5)
 
@@ -169,7 +169,7 @@ A
 ### Chosen (answered by Kathryn Chiew, 2026-11-12)
 
 - **Purpose — QST-PURPOSE: override.** Kathryn wants a structured, week-by-week class in building and deploying AI capabilities, with Wren as instructor. Its own thread → [ADR-0003](0003-a-week-by-week-ai-building-curriculum.md).
-- **Look — QST-LOOK = B, a full theme; QST-THEME = A, soft pastel** (Kathryn chose it over the recommended retro terminal). Light background, gentle lavender / mint / peach colors, rounded corners; a pastel-tinted dark version for dark mode. No new name given, so the page stays "my-harness" for now.
+- **Look — QST-LOOK = B, a full theme; QST-THEME = A, soft pastel** (Kathryn chose it over the recommended retro terminal), built in iteration 3 — **then revised by Kathryn after seeing it (iteration 4, 2026-11-12)**: *"can you change it to look like it will reflect more of how github looks? i think that simplistic tech design, clean working would be much more preferred to the pastel design so that it's obvious."* Current look: **clean, GitHub-inspired** — white / near-black backgrounds, gray borders, system font, small corner radius, a green primary button and blue focus highlights, in light and dark. (Inspired by the style only: no GitHub name or logo.) No new name given, so the page stays "my-harness".
 - **Models — QST-MODELS = B, a short dropdown of hand-picked models** with rough prices, switchable above the chat box; default changes from `openrouter/auto` to a cheap model.
 - **Replies — QST-REPLIES = B, formatted replies** (Markdown, with raw HTML refused to keep ADR-0001's safety rule); streaming stays a possible later step.
 - **Budget — QST-BUDGET = B, remaining balance** ("$X of $10 left" in the top bar, refreshed after each reply). Kathryn chose B over the recommended C, so no per-reply cost labels.
@@ -217,6 +217,12 @@ A
 - Contributors: Kathryn Chiew (answer), Wren 5.5 (processing, theme build)
 - Changes: theme recorded and built; MODELS/REPLIES/BUDGET scheduled into ADR-0003 Week 2
 - Outcome: `Draft → Accepted`
+
+### Iteration 4 (2026-11-12)
+- Trigger: Kathryn saw the pastel theme live and asked for a clean, GitHub-like "simplistic tech design" instead (quoted in the Decision)
+- Contributors: Kathryn Chiew (direction), Wren 5.5 (rebuild)
+- Changes: pastel palette replaced by a neutral GitHub-inspired one; colors still live in one list in `src/index.css`
+- Outcome: stays Accepted — a revised decision, recorded rather than silently overwritten
 
 ---
 
