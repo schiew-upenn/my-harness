@@ -9,7 +9,7 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # Week 1 — Prompting and instructions
 
 - **Date**: 2026-11-12
-- **Iteration**: 3
+- **Iteration**: 4
 - **Status**: Accepted
 - **Deciders**: Kathryn Chiew (student), Wren 5.5 (Claude Opus 5.5, instructor)
 
@@ -170,6 +170,12 @@ When a chat has instructions, the page puts them first in the messages list as a
 - Contributors: Kathryn Chiew (experiment, reflection), Wren 5.5 (recording)
 - Changes: QST-REFLECTION answered with her words, replacing the earlier question; action items closed
 - Outcome: Week 1 complete — Accepted and done; next is Week 2 ("models & money")
+
+### Iteration 4 (2026-11-12)
+- Trigger: Kathryn: "there was no lesson taught" — correct: the lesson lived only in this file
+- Contributors: Kathryn Chiew (the catch), Wren 5.5 (teaching)
+- Changes: lesson taught in conversation, using her own experiment as the example, plus a hands-on exercise writing her own instructions; course routine fixed in ADR-0003 iteration 3
+- Outcome: Week 1 reopened until the exercise is done
 
 ---
 

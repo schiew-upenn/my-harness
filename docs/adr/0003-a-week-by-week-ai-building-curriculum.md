@@ -9,7 +9,7 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # A week-by-week AI-building curriculum
 
 - **Date**: 2026-11-12
-- **Iteration**: 2
+- **Iteration**: 3
 - **Status**: Accepted
 - **Deciders**: Kathryn Chiew (human), Wren 5.5 (Claude Opus 5.5)
 
@@ -153,6 +153,7 @@ A
 
 ### How each week runs
 1. **Lesson plan** — Wren writes the week as its own record (`just adr "Week N — <topic>"`): what you'll learn, why it matters, what we'll build, its expected cost against the $10 key, and the 1–2 decisions that are yours.
+1b. **Teach it** *(added iteration 3, after Kathryn's catch on Week 1)* — Wren teaches the lesson **in conversation**: plain-language explanation, a concrete look at what's really happening (e.g. the actual request the page sends), and a quick check question — before anything is built. The record keeps a copy; it never replaces the teaching.
 2. **Decide** — Kathryn answers the week's questions.
 3. **Build & ship** — together, with tests; live by the end of the session.
 4. **Reflect** — Kathryn writes 2–3 sentences in the record: what she learned, what surprised her.
