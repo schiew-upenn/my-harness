@@ -9,8 +9,8 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # Making the harness my own
 
 - **Date**: 2026-11-12
-- **Iteration**: 2
-- **Status**: Draft
+- **Iteration**: 3
+- **Status**: Accepted
 - **Deciders**: Kathryn Chiew (human), Wren 5.5 (Claude Opus 5.5)
 
 **TL;DR**: The first version works; before changing anything, decide what the harness is *for* and how Kathryn wants it to look, pick models, show replies, and track the $10 key budget.
@@ -169,13 +169,14 @@ A
 ### Chosen (answered by Kathryn Chiew, 2026-11-12)
 
 - **Purpose — QST-PURPOSE: override.** Kathryn wants a structured, week-by-week class in building and deploying AI capabilities, with Wren as instructor. Its own thread → [ADR-0003](0003-a-week-by-week-ai-building-curriculum.md).
-- **Look — QST-LOOK = B, a full theme.** Feel and name pending → QST-THEME.
+- **Look — QST-LOOK = B, a full theme; QST-THEME = A, soft pastel** (Kathryn chose it over the recommended retro terminal). Light background, gentle lavender / mint / peach colors, rounded corners; a pastel-tinted dark version for dark mode. No new name given, so the page stays "my-harness" for now.
 - **Models — QST-MODELS = B, a short dropdown of hand-picked models** with rough prices, switchable above the chat box; default changes from `openrouter/auto` to a cheap model.
 - **Replies — QST-REPLIES = B, formatted replies** (Markdown, with raw HTML refused to keep ADR-0001's safety rule); streaming stays a possible later step.
 - **Budget — QST-BUDGET = B, remaining balance** ("$X of $10 left" in the top bar, refreshed after each reply). Kathryn chose B over the recommended C, so no per-reply cost labels.
 
 ### Consequences
-- MODELS, REPLIES and BUDGET are ready to build. If ADR-0003's syllabus is accepted as drafted, they're the build of its Week 2 ("models & money"); otherwise they can be built on their own.
+- The pastel theme is built now (iteration 3).
+- MODELS, REPLIES and BUDGET are the build of ADR-0003's **Week 2** ("models & money"), since Kathryn accepted that syllabus as drafted — built then, as part of the lesson, not before.
 - Each ships as its own small change with tests (Fifth Directive).
 
 ---
@@ -191,8 +192,9 @@ A
 
 - [x] Answer QST-PURPOSE, QST-LOOK, QST-MODELS, QST-REPLIES, QST-BUDGET - Owner: Kathryn Chiew
 - [x] Fill the Decision section - Owner: Wren 5.5
-- [ ] Answer QST-THEME - Owner: Kathryn Chiew
-- [ ] Build the model dropdown, formatted replies, balance display, and theme, one change each - Owner: Wren 5.5
+- [x] Answer QST-THEME - Owner: Kathryn Chiew
+- [x] Build the soft pastel theme - Owner: Wren 5.5
+- [ ] Build the model dropdown, formatted replies, and balance display in ADR-0003's Week 2 - Owner: Wren 5.5 with Kathryn
 
 ---
 
@@ -209,6 +211,12 @@ A
 - Contributors: Kathryn Chiew (answers), Wren 5.5 (processing)
 - Changes: Decision section filled; PURPOSE's answer opened a new thread → ADR-0003; LOOK's answer left the feel open → follow-up QST-THEME
 - Outcome: stays Draft until QST-THEME is answered
+
+### Iteration 3 (2026-11-12)
+- Trigger: Kathryn answered QST-THEME with A (soft pastel) and said "read and proceed"
+- Contributors: Kathryn Chiew (answer), Wren 5.5 (processing, theme build)
+- Changes: theme recorded and built; MODELS/REPLIES/BUDGET scheduled into ADR-0003 Week 2
+- Outcome: `Draft → Accepted`
 
 ---
 

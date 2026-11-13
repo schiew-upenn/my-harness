@@ -9,8 +9,8 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # A week-by-week AI-building curriculum
 
 - **Date**: 2026-11-12
-- **Iteration**: 1
-- **Status**: Draft
+- **Iteration**: 2
+- **Status**: Accepted
 - **Deciders**: Kathryn Chiew (human), Wren 5.5 (Claude Opus 5.5)
 
 **TL;DR**: Kathryn wants a structured, professor-style "vibe coding class" in building with AI — one new capability built and deployed each week — and these questions settle where it happens, what's in it, its pace, and how it fits the professor's rules.
@@ -144,7 +144,23 @@ A
 
 ## Decision
 
-*Pending — filled in from the answers above.*
+### Chosen (answered by Kathryn Chiew, 2026-11-12)
+
+- **Shape — QST-CLASS-SHAPE = C, a full course**: build-along lessons with Wren as instructor, *plus* a Syllabus panel in the chat page showing the weeks, what's done, and what's next. (Kathryn's answer: "C ? so it's a full course" — yes: C is the full course.)
+- **Syllabus — QST-SYLLABUS = A, as drafted**: the eight weeks plus capstone in "DOC: draft syllabus", in order, starting with Week 1 (prompting & instructions).
+- **Pace — QST-PACE = A, about 1–2 hours a week**: one small, complete build per week; lessons are sized to fit, and anything bigger is split across weeks.
+- **Rules — QST-COURSE-RULES = A, separate projects**: Weeks 1–3 improve the chat page here in `my-harness` (keeping the professor's rules); Weeks 4–8 and the capstone each get their own new repo started from the ADRs4AI template.
+
+### How each week runs
+1. **Lesson plan** — Wren writes the week as its own record (`just adr "Week N — <topic>"`): what you'll learn, why it matters, what we'll build, its expected cost against the $10 key, and the 1–2 decisions that are yours.
+2. **Decide** — Kathryn answers the week's questions.
+3. **Build & ship** — together, with tests; live by the end of the session.
+4. **Reflect** — Kathryn writes 2–3 sentences in the record: what she learned, what surprised her.
+5. **Tick it off** in the page's Syllabus panel.
+
+### Consequences
+- The Syllabus panel is built now (iteration 2) with the weeks from this record; progress is saved in the browser like everything else.
+- Week 2's build is ADR-0002's model dropdown, formatted replies, and balance display.
 
 ---
 
@@ -158,8 +174,10 @@ A
 
 ## Action Items
 
-- [ ] Answer QST-CLASS-SHAPE, QST-SYLLABUS, QST-PACE, QST-COURSE-RULES - Owner: Kathryn Chiew
-- [ ] Turn the answers into a final syllabus and propose Week 1's lesson - Owner: Wren 5.5
+- [x] Answer QST-CLASS-SHAPE, QST-SYLLABUS, QST-PACE, QST-COURSE-RULES - Owner: Kathryn Chiew
+- [x] Build the Syllabus panel in the chat page - Owner: Wren 5.5
+- [x] Write Week 1's lesson plan (ADR-0004) - Owner: Wren 5.5
+- [ ] Week 1: answer its questions, build, reflect - Owner: Kathryn Chiew with Wren 5.5
 
 ---
 
@@ -170,6 +188,12 @@ A
 - Contributors: Kathryn Chiew (the idea), Wren 5.5 (syllabus draft, questions)
 - Changes: four questions and a draft eight-week syllabus
 - Outcome: Draft; awaiting answers
+
+### Iteration 2 (2026-11-12)
+- Trigger: Kathryn answered all four (CLASS-SHAPE C, SYLLABUS A, PACE A, COURSE-RULES A) and said "read and proceed"
+- Contributors: Kathryn Chiew (answers), Wren 5.5 (processing, Syllabus panel, Week 1 plan)
+- Changes: Decision and weekly routine recorded; Syllabus panel built; Week 1 lesson plan written as ADR-0004
+- Outcome: `Draft → Accepted`
 
 ---
 
