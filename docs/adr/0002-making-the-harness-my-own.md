@@ -9,7 +9,7 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # Making the harness my own
 
 - **Date**: 2026-11-12
-- **Iteration**: 1
+- **Iteration**: 2
 - **Status**: Draft
 - **Deciders**: Kathryn Chiew (human), Wren 5.5 (Claude Opus 5.5)
 
@@ -144,9 +144,39 @@ B
 
 ---
 
+### QST-THEME: Which feel should the full theme have — and what's the page called?
+- Status: unanswered
+- Why asking: Kathryn answered QST-LOOK with **B (a full theme)**, whose option said "you describe the feel; I propose it, and you approve before it's built" — the feel and name are still open. Follow-up to QST-LOOK.
+- Need: pick a letter (or describe your own feel), and a name if you want one (or override — any shape answers)
+
+Options:
+- **A — soft pastel**: Light background, gentle colors (e.g. lavender, mint, peach), rounded corners, friendly feel.
+- **B — bold and colorful**: Bright accent colors, larger headings, playful and energetic.
+- **C — retro terminal**: Dark background, glowing green or amber text, monospace "typewriter" font — like a hacker console or an old computer.
+- **D — editorial / minimal**: Black-and-white, elegant serif headings, lots of white space — like a well-designed magazine.
+
+**Recommendation**: (by Wren 5.5, Claude Opus 5.5, 2026-11-12)
+
+**C — retro terminal.** *Rationale*: ADR-0003 makes this page your workbench for a class in building AI tools, and a terminal look fits a builder's workshop; it's also the most distinctive, so the page reads as yours at a glance. All four are equally easy to build, since the colors live in one list in `src/index.css`. *Confidence*: 0.35 — because this is pure taste, and mine shouldn't count for much here. *If wrong*: any feel you describe replaces this pick — a color you love, a site whose look you like, anything.
+
+**ANS:** (by Kathryn Chiew)
+[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+
+---
+
 ## Decision
 
-*Pending — filled in from the answers above.*
+### Chosen (answered by Kathryn Chiew, 2026-11-12)
+
+- **Purpose — QST-PURPOSE: override.** Kathryn wants a structured, week-by-week class in building and deploying AI capabilities, with Wren as instructor. Its own thread → [ADR-0003](0003-a-week-by-week-ai-building-curriculum.md).
+- **Look — QST-LOOK = B, a full theme.** Feel and name pending → QST-THEME.
+- **Models — QST-MODELS = B, a short dropdown of hand-picked models** with rough prices, switchable above the chat box; default changes from `openrouter/auto` to a cheap model.
+- **Replies — QST-REPLIES = B, formatted replies** (Markdown, with raw HTML refused to keep ADR-0001's safety rule); streaming stays a possible later step.
+- **Budget — QST-BUDGET = B, remaining balance** ("$X of $10 left" in the top bar, refreshed after each reply). Kathryn chose B over the recommended C, so no per-reply cost labels.
+
+### Consequences
+- MODELS, REPLIES and BUDGET are ready to build. If ADR-0003's syllabus is accepted as drafted, they're the build of its Week 2 ("models & money"); otherwise they can be built on their own.
+- Each ships as its own small change with tests (Fifth Directive).
 
 ---
 
@@ -159,8 +189,10 @@ B
 
 ## Action Items
 
-- [ ] Answer QST-PURPOSE, QST-LOOK, QST-MODELS, QST-REPLIES, QST-BUDGET - Owner: Kathryn Chiew
-- [ ] Fill the Decision section, then build the choices one at a time - Owner: Wren 5.5
+- [x] Answer QST-PURPOSE, QST-LOOK, QST-MODELS, QST-REPLIES, QST-BUDGET - Owner: Kathryn Chiew
+- [x] Fill the Decision section - Owner: Wren 5.5
+- [ ] Answer QST-THEME - Owner: Kathryn Chiew
+- [ ] Build the model dropdown, formatted replies, balance display, and theme, one change each - Owner: Wren 5.5
 
 ---
 
@@ -171,6 +203,12 @@ B
 - Contributors: Kathryn Chiew (request), Wren 5.5 (framing, recommendations)
 - Changes: five questions with recommendations
 - Outcome: Draft; awaiting answers
+
+### Iteration 2 (2026-11-12)
+- Trigger: Kathryn answered all five (PURPOSE override; LOOK B; MODELS B; REPLIES B; BUDGET B, over the recommended C)
+- Contributors: Kathryn Chiew (answers), Wren 5.5 (processing)
+- Changes: Decision section filled; PURPOSE's answer opened a new thread → ADR-0003; LOOK's answer left the feel open → follow-up QST-THEME
+- Outcome: stays Draft until QST-THEME is answered
 
 ---
 
