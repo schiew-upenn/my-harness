@@ -249,7 +249,7 @@ If the script was successfully used, append as comments how, and what the outcom
 A simple chat harness: a single chat web page hosted on GitHub Pages (no backend), where the user's browser calls the OpenRouter API directly (OpenRouter allows cross-origin requests) using the user's own API key, and conversations are kept in the browser's localStorage. This repo is both the product (the static site) and its deliberation record (ADRs in `docs/adr/`).
 
 ### Current focus:
-First version of the chat page built (React + Vite in `src/`); next is the guide's Step 8 — push to `schiew-upenn/my-harness` and turn on GitHub Pages (Source: GitHub Actions).
+First version live at https://schiew-upenn.github.io/my-harness/ since 2026-11-12 (every push to `main` re-publishes via `.github/workflows/deploy.yml`; Pages source = GitHub Actions). Open: ADR-0002 QST-THEME (look) and ADR-0003 (the week-by-week AI-building curriculum). Pushing workflow files needs the `workflow` scope on the **schiew-upenn** `gh` token — a browser signed in to another account grants it to the wrong one (happened once; use a private window).
 
 ### Key decisions made:
 - API key pasted once and remembered in localStorage; React + Vite with CSS Modules; a sidebar list of saved chats — see `docs/adr/0001-first-decisions-for-the-chat-harness.md`
