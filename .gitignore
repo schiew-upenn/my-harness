@@ -4,6 +4,14 @@
 # Temporary files
 ~*
 
+# Node / Vite
+node_modules/
+dist/
+
+# Secrets — API keys never go in the repo (docs/adr/0001)
+.env
+.env.*
+
 # Python temporary files
 __pycache__/
 *.py[cod]

@@ -1,0 +1,64 @@
+/* Page-wide basics only. Each component's own look lives in its *.module.css
+   (CSS Modules: class names are made unique per component, so styles can't
+   leak between components — docs/adr/0001, QST-FRAMEWORK). */
+
+:root {
+  --bg: #ffffff;
+  --panel: #f5f6f4;
+  --text: #1d211f;
+  --muted: #5f6763;
+  --border: #dde1de;
+  --accent: #3f8a57;
+  --accent-text: #ffffff;
+  --user-bubble: #e5f1e8;
+  --error-bg: #fdecea;
+  --error-text: #8a1f17;
+
+  color-scheme: light dark;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161917;
+    --panel: #1f2320;
+    --text: #e6e9e7;
+    --muted: #9aa39e;
+    --border: #333a36;
+    --accent: #5fb07a;
+    --accent-text: #0e1410;
+    --user-bubble: #23382a;
+    --error-bg: #3b1c19;
+    --error-text: #f4b8b1;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
