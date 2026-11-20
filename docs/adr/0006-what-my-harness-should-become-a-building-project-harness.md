@@ -9,8 +9,8 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # What my-harness should become: a building-project harness
 
 - **Date**: 2026-11-19
-- **Iteration**: 2
-- **Status**: Draft
+- **Iteration**: 3
+- **Status**: Accepted
 - **Deciders**: Kathryn Chiew (human), Wren 5.5 (Claude Opus 5.5)
 
 **TL;DR**: Kathryn finds the project confusing (no visible rules, a messy page, a chat box with no clear job) and wants it to be a *building-project harness*. These six questions decide what that means before anything else gets built.
@@ -171,7 +171,7 @@ A
 ---
 
 ### QST-BUILD-ORDER: Which piece of the new studio gets built first?
-- Status: unanswered
+- Status: answered
 - Why asking: Your answers describe four pieces (see "Decision" below): a lesson home screen, a question-asking coach, a build studio with live preview, and steps and achievements. That's several weeks of work at your pace of 1–2 hours a week (ADR-0003, QST-PACE), so one has to come first. Follow-up to QST-USE-CASE and QST-MEANING (iteration 2).
 - Need: pick a letter (or override — any shape answers)
 
@@ -185,12 +185,12 @@ Options:
 **A — lesson home + progress.** *Rationale*: it's exactly your QST-USE-CASE answer ("I would want to open it and it shows me a new lesson"), and it fixes your QST-UI-MESS complaint (no steps, no achievements) right away. It also needs no AI calls, so it can't spend your $10 key. B and C then plug into the lesson screen as its "start building" buttons. *Confidence*: 0.7 — because your own words name this first moment; it drops if the coach is what excites you most. *If wrong*: if the multiple-choice coach is the part you most want to see, flip to **B**; if seeing something you built run on screen matters most, **C**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]
+A
 
 ---
 
 ### QST-LESSON-SOURCE: Who writes the lessons the page shows?
-- Status: unanswered
+- Status: answered
 - Why asking: You want the page to show a lesson with why it's useful and how CS people think about it. Those words have to come from somewhere, and the choice decides quality, cost and how up to date the lessons are. It also changes ADR-0003's routine, where Wren teaches each lesson here in VS Code (step 1b). Follow-up to QST-USE-CASE (iteration 2).
 - Need: pick a letter (or override — any shape answers)
 
@@ -204,7 +204,7 @@ Options:
 **C — both.** *Rationale*: your Week 1 catch (ADR-0003, iteration 3: "there was no lesson taught") showed that lessons need to be really taught, which a checked, pre-written core guarantees. Your QST-MEANING answer asks for something "smart enough that it can understand what I want", which is what the "Ask more" part gives. A pre-written core also keeps everyday use free. *Confidence*: 0.65 — because it splits the difference; your preference between reliable and fresh decides it. *If wrong*: if you'd rather every lesson come from the AI so it can be about anything, flip to **B**; if you want zero AI spending on lessons, **A**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]
+C
 
 ---
 
@@ -249,7 +249,10 @@ The plain chat stays, one click away. ADR-0001's rules still hold: GitHub Pages 
 ### Tension to watch
 COURSE-FIT = A keeps Weeks 4–8 in their own repos, while the page becomes the place lessons are shown. These fit together if the page *shows* every week's lesson and progress, while Weeks 4–8 are *built* elsewhere. If that's not what Kathryn means, QST-COURSE-RULES in ADR-0003 reopens.
 
-*The remaining choices are QST-BUILD-ORDER and QST-LESSON-SOURCE; status stays Draft until they're answered.*
+### Build plan (answered by Kathryn Chiew, 2026-11-19)
+
+- **First piece, QST-BUILD-ORDER = A, lesson home + progress**: the page opens on "Today's lesson", with its steps to tick off and achievements. No AI calls. The coach (B) and the live preview studio (C) come after, as the lesson screen's "start building" buttons.
+- **Lessons, QST-LESSON-SOURCE = C, both**: Wren writes each lesson's core ahead of time (what you'll build, why it's useful, how CS people think about it). An "Ask more" button lets the page's AI go deeper, using Kathryn's key.
 
 ---
 
@@ -257,7 +260,7 @@ COURSE-FIT = A keeps Weeks 4–8 in their own repos, while the page becomes the 
 
 - [x] Answer the six questions - Owner: Kathryn Chiew
 - [x] Process the answers and fill the Decision section - Owner: Wren 5.5
-- [ ] Answer QST-BUILD-ORDER and QST-LESSON-SOURCE - Owner: Kathryn Chiew
+- [x] Answer QST-BUILD-ORDER and QST-LESSON-SOURCE - Owner: Kathryn Chiew
 - [ ] Put the session routine in the repo (and later in the page) - Owner: Wren 5.5
 - [ ] Build the first piece, with tests, and push it live - Owner: Wren 5.5 with Kathryn Chiew
 
@@ -276,6 +279,12 @@ COURSE-FIT = A keeps Weeks 4–8 in their own repos, while the page becomes the 
 - Contributors: Kathryn Chiew (answers), Wren 5.5 (processing)
 - Changes: Decision filled with a four-piece studio; session routine drafted; two follow-up questions minted (QST-BUILD-ORDER, QST-LESSON-SOURCE); COURSE-FIT tension noted
 - Outcome: stays Draft until the follow-ups are answered
+
+### Iteration 3 (2026-11-19)
+- Trigger: Kathryn answered QST-BUILD-ORDER = A and QST-LESSON-SOURCE = C
+- Contributors: Kathryn Chiew (answers), Wren 5.5 (processing)
+- Changes: build plan recorded: lesson home + progress first, lessons pre-written with an "Ask more" button
+- Outcome: `Draft → Accepted`
 
 ---
 
