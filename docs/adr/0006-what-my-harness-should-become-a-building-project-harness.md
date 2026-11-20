@@ -261,8 +261,9 @@ COURSE-FIT = A keeps Weeks 4–8 in their own repos, while the page becomes the 
 - [x] Answer the six questions - Owner: Kathryn Chiew
 - [x] Process the answers and fill the Decision section - Owner: Wren 5.5
 - [x] Answer QST-BUILD-ORDER and QST-LESSON-SOURCE - Owner: Kathryn Chiew
-- [ ] Put the session routine in the repo (and later in the page) - Owner: Wren 5.5
-- [ ] Build the first piece, with tests, and push it live - Owner: Wren 5.5 with Kathryn Chiew
+- [x] Put the session routine in the page: it is every lesson's five steps (`src/lib/lessons.js`, `STEPS`) - Owner: Wren 5.5
+- [x] Build the first piece (lesson home + progress), with tests, and push it live - Owner: Wren 5.5 (2026-11-19)
+- [ ] Next pieces, in order: the coach (multiple-choice "what should I build?"), then the live preview studio - Owner: Wren 5.5 with Kathryn Chiew
 
 ---
 
@@ -285,6 +286,12 @@ COURSE-FIT = A keeps Weeks 4–8 in their own repos, while the page becomes the 
 - Contributors: Kathryn Chiew (answers), Wren 5.5 (processing)
 - Changes: build plan recorded: lesson home + progress first, lessons pre-written with an "Ask more" button
 - Outcome: `Draft → Accepted`
+
+### Iteration 4 (2026-11-19)
+- Trigger: Kathryn: "build it"
+- Contributors: Wren 5.5 (build), Kathryn Chiew (direction)
+- Changes: the page now opens on "Today's lesson" (`src/components/LessonHome.jsx`): the lesson's core text for all 9 lessons (`src/lib/lessons.js`), five steps per lesson (ticking all five finishes the lesson), "Your path" through the course, 11 achievements worked out from progress (`src/lib/achievements.js`), and three "Ask more" buttons that open a chat already holding the lesson as its instructions. The old Course panel was removed: the home screen does its job (it was QST-COURSE-FIT's "progress tracker"). Weeks ticked off in the old panel show as fully done. 13 new tests (49 total); checked by screenshot at desktop and narrow widths.
+- Outcome: stays Accepted; first piece shipped
 
 ---
 
