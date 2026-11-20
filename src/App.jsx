@@ -1,14 +1,15 @@
-// The whole page: sidebar of chats, the open chat, and the settings panel.
+// The whole page: sidebar, then either the home screen ("Today's lesson",
+// docs/adr/0006) or the open chat, plus the settings panel.
 // Holds the page state, saves it to localStorage on every change, and sends
-// messages to OpenRouter. Decisions: docs/adr/0001.
+// messages to OpenRouter. Decisions: docs/adr/0001, docs/adr/0006.
 import { useEffect, useState } from 'react';
 import { loadState, saveState } from './lib/storage.js';
 import {
   activeChat, addChat, appendMessage, deleteChat, newChat, renameChat, selectChat, setInstructions, updateSettings,
 } from './lib/chats.js';
 import { sendChat } from './lib/openrouter.js';
-import { toggleDone } from './lib/syllabus.js';
-import SyllabusPanel from './components/SyllabusPanel.jsx';
+import { askMoreInstructions, toggleStep } from './lib/lessons.js';
+import LessonHome from './components/LessonHome.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import ChatView from './components/ChatView.jsx';
 import SettingsPanel from './components/SettingsPanel.jsx';
@@ -22,7 +23,8 @@ export default function App() {
   // First visit (no key yet): open Settings straight away.
   const [settingsOpen, setSettingsOpen] = useState(() => !state.settings.apiKey);
   const [sidebarOpen, setSidebarOpen] = useState(false); // small screens only
-  const [courseOpen, setCourseOpen] = useState(false);
+  // The page opens on the lesson (ADR-0006, QST-USE-CASE); chats are one click away.
+  const [view, setView] = useState('home');
 
   useEffect(() => {
     const result = saveState(window.localStorage, state);
@@ -36,29 +38,26 @@ export default function App() {
     return newChat(s.settings.model, Date.now(), undefined, s.settings.defaultInstructions ?? '');
   }
 
-  function handleNewChat() {
-    setState((s) => addChat(s, freshChat(s)));
+  function openChatView() {
+    setView('chat');
     setSendError(null);
     setSidebarOpen(false);
+  }
+
+  function handleNewChat() {
+    setState((s) => addChat(s, freshChat(s)));
+    openChatView();
   }
 
   function handleSelect(id) {
     setState((s) => selectChat(s, id));
-    setSendError(null);
-    setSidebarOpen(false);
+    openChatView();
   }
 
-  async function handleSend(text) {
-    // Work out the next state here (not inside setState) because we need the
-    // full conversation to send.
-    let next = state;
-    let chatId = chat?.id;
-    if (!chatId) {
-      const created = freshChat(state);
-      next = addChat(next, created);
-      chatId = created.id;
-    }
-    next = appendMessage(next, chatId, { role: 'user', content: text, createdAt: Date.now() });
+  // Add the user's message to `base` (a state that already holds the chat),
+  // show it, and ask OpenRouter for the reply.
+  async function sendIn(base, chatId, text) {
+    const next = appendMessage(base, chatId, { role: 'user', content: text, createdAt: Date.now() });
     setState(next);
     setSendError(null);
     setSendingChatId(chatId);
@@ -86,22 +85,48 @@ export default function App() {
     }
   }
 
+  function handleSend(text) {
+    // Work out the next state here (not inside setState) because we need the
+    // full conversation to send.
+    let base = state;
+    let chatId = chat?.id;
+    if (!chatId) {
+      const created = freshChat(state);
+      base = addChat(base, created);
+      chatId = created.id;
+    }
+    sendIn(base, chatId, text);
+  }
+
+  // "Ask more" on the home screen: a new chat that already knows the lesson,
+  // with the chosen question sent straight away (ADR-0006, QST-LESSON-SOURCE = C).
+  function handleAskMore(lesson, ask) {
+    if (sendingChatId !== null) return;
+    const created = newChat(state.settings.model, Date.now(), undefined, askMoreInstructions(lesson));
+    const base = renameChat(addChat(state, created), created.id, `Ask more: ${lesson.label}`);
+    openChatView();
+    sendIn(base, created.id, ask.prompt);
+  }
+
+  const onHome = view === 'home';
+
   return (
     <div className={styles.layout}>
       <Sidebar
         chats={state.chats}
-        activeChatId={state.activeChatId}
+        activeChatId={onHome ? null : state.activeChatId}
+        homeActive={onHome}
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
+        onOpenHome={() => {
+          setView('home');
+          setSidebarOpen(false);
+        }}
         onNewChat={handleNewChat}
         onSelect={handleSelect}
         onRename={(id, title) => setState((s) => renameChat(s, id, title))}
         onDelete={(id) => setState((s) => deleteChat(s, id))}
         onOpenSettings={() => setSettingsOpen(true)}
-        onOpenCourse={() => {
-          setCourseOpen(true);
-          setSidebarOpen(false);
-        }}
       />
 
       <main className={styles.main}>
@@ -110,18 +135,20 @@ export default function App() {
             type="button"
             className={styles.menuButton}
             onClick={() => setSidebarOpen(true)}
-            aria-label="Show chats"
+            aria-label="Show menu"
           >
             ☰
           </button>
-          <h1 className={styles.title}>{chat?.title ?? 'my-harness'}</h1>
-          <span className={styles.model} title="Model used for the next message (change in Settings)">
-            {state.settings.model}
-          </span>
+          <h1 className={styles.title}>{onHome ? 'my-harness · your AI studio' : (chat?.title ?? 'New chat')}</h1>
+          {!onHome && (
+            <span className={styles.model} title="Model used for the next message (change in Settings)">
+              {state.settings.model}
+            </span>
+          )}
         </header>
 
         {saveError && <p className={styles.banner}>{saveError}</p>}
-        {!state.settings.apiKey && !settingsOpen && (
+        {!state.settings.apiKey && !settingsOpen && !onHome && (
           <p className={styles.banner}>
             No OpenRouter key yet.{' '}
             <button type="button" className={styles.linkButton} onClick={() => setSettingsOpen(true)}>
@@ -130,23 +157,24 @@ export default function App() {
           </p>
         )}
 
-        <ChatView
-          chat={chat}
-          waitingHere={sendingChatId !== null && sendingChatId === chat?.id}
-          busy={sendingChatId !== null}
-          error={sendError}
-          onSend={handleSend}
-          onInstructionsChange={(text) => chat && setState((s) => setInstructions(s, chat.id, text))}
-        />
+        {onHome ? (
+          <LessonHome
+            state={state}
+            busy={sendingChatId !== null}
+            onToggleStep={(lessonId, stepId) => setState((s) => toggleStep(s, lessonId, stepId))}
+            onAskMore={handleAskMore}
+          />
+        ) : (
+          <ChatView
+            chat={chat}
+            waitingHere={sendingChatId !== null && sendingChatId === chat?.id}
+            busy={sendingChatId !== null}
+            error={sendError}
+            onSend={handleSend}
+            onInstructionsChange={(text) => chat && setState((s) => setInstructions(s, chat.id, text))}
+          />
+        )}
       </main>
-
-      {courseOpen && (
-        <SyllabusPanel
-          done={state.course.done}
-          onToggle={(id) => setState((s) => toggleDone(s, id))}
-          onClose={() => setCourseOpen(false)}
-        />
-      )}
 
       {settingsOpen && (
         <SettingsPanel

@@ -22,6 +22,32 @@
   font-weight: 600;
 }
 
+/* "Today's lesson": the home screen's button, first in the sidebar (ADR-0006). */
+.home {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  text-align: left;
+  font-weight: 600;
+}
+
+.homeActive {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.listHeading {
+  margin-top: 8px;
+  padding: 0 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
 .list {
   flex: 1;
   list-style: none;

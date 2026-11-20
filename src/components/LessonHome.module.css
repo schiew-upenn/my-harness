@@ -1,0 +1,307 @@
+.home {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px 40px;
+}
+
+.column {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Progress strip */
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.progressRow strong {
+  color: var(--text);
+}
+
+.bar {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.complete {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background: var(--user-bubble);
+  font-weight: 600;
+}
+
+/* Cards */
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  background: var(--bg);
+}
+
+.card p {
+  margin: 0 0 8px;
+}
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+.where {
+  margin-left: auto;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0 8px;
+}
+
+.lessonTitle {
+  margin: 4px 0 2px;
+  font-size: 1.6rem;
+  line-height: 1.25;
+}
+
+.learn {
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+
+.sub {
+  margin: 14px 0 2px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.askRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.askLabel {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.ask {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel);
+  font-size: 0.85rem;
+}
+
+.ask:hover:not(:disabled) {
+  border-color: var(--accent-strong);
+  color: var(--accent-strong);
+}
+
+.note {
+  margin-top: 8px !important;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.sectionTitle {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+/* Steps */
+.stepsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.count {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.step + .step {
+  border-top: 1px solid var(--border);
+}
+
+.stepLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.stepLabel input {
+  margin-top: 4px;
+  accent-color: var(--accent);
+}
+
+.stepTitle {
+  display: block;
+  font-weight: 600;
+}
+
+.stepDetail {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.stepDone .stepTitle {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+/* Path */
+.path {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pathItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: none;
+  text-align: left;
+}
+
+.pathItem:hover {
+  background: var(--panel);
+}
+
+.pathViewing {
+  border-color: var(--border);
+  background: var(--panel);
+}
+
+.mark {
+  width: 1.2em;
+  text-align: center;
+  color: var(--muted);
+}
+
+.pathDone .mark {
+  color: var(--accent);
+}
+
+.pathNext .mark,
+.pathNext .pathTitle {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.pathLabel {
+  width: 5.5em;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Achievements */
+.badges {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  padding: 10px 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.badgeIcon {
+  font-size: 1.6rem;
+}
+
+.badgeName {
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.badgeHow {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.earned {
+  background: var(--panel);
+  border-color: var(--accent);
+}
+
+.locked .badgeIcon {
+  filter: grayscale(1);
+  opacity: 0.35;
+}
+
+.locked .badgeName {
+  color: var(--muted);
+}
+
+@media (max-width: 720px) {
+  .card {
+    padding: 14px;
+  }
+
+  .progressRow {
+    flex-wrap: wrap;
+  }
+
+  .bar {
+    order: 3;
+    flex-basis: 100%;
+  }
+}

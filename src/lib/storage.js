@@ -4,7 +4,8 @@
 //
 // Everything lives under ONE key as ONE versioned JSON record:
 //   { version: 1, settings: { apiKey, model }, chats: [...], activeChatId,
-//     course: { done: [weekIds] } }   ← course added by docs/adr/0003
+//     course: { done: [weekIds], steps: { weekId: [stepIds] } } }
+//   ← course added by docs/adr/0003; steps added by docs/adr/0006
 // The `version` lets a future change of shape be detected instead of misread.
 //
 // Functions take the storage object as a parameter (window.localStorage in the
@@ -20,8 +21,12 @@ export function emptyState() {
     settings: { apiKey: '', model: DEFAULT_MODEL, defaultInstructions: '' },
     chats: [],
     activeChatId: null,
-    course: { done: [] },
+    course: { done: [], steps: {} },
   };
+}
+
+function isPlainObject(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
 function looksValid(parsed) {
@@ -71,6 +76,8 @@ export function loadState(storage) {
       ...fresh.course,
       ...parsed.course,
       done: Array.isArray(parsed.course?.done) ? parsed.course.done : [],
+      // Data saved before lesson steps existed has no `steps`; start them empty.
+      steps: isPlainObject(parsed.course?.steps) ? parsed.course.steps : {},
     },
   };
 }

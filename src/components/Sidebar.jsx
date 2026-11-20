@@ -1,11 +1,12 @@
-// The list of saved chats (docs/adr/0001, QST-STORAGE = B): new, switch,
-// rename, delete. On small screens it slides in from the left.
+// The sidebar: "Today's lesson" (the home screen, docs/adr/0006), then the
+// list of saved chats (docs/adr/0001, QST-STORAGE = B): new, switch, rename,
+// delete. On small screens it slides in from the left.
 import { useState } from 'react';
 import { instructionsLabel } from '../lib/presets.js';
 import styles from './Sidebar.module.css';
 
 export default function Sidebar({
-  chats, activeChatId, open, onClose, onNewChat, onSelect, onRename, onDelete, onOpenSettings, onOpenCourse,
+  chats, activeChatId, homeActive, open, onClose, onOpenHome, onNewChat, onSelect, onRename, onDelete, onOpenSettings,
 }) {
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState('');
@@ -23,11 +24,20 @@ export default function Sidebar({
   return (
     <>
       {open && <div className={styles.backdrop} onClick={onClose} />}
-      <nav className={`${styles.sidebar} ${open ? styles.open : ''}`} aria-label="Saved chats">
+      <nav className={`${styles.sidebar} ${open ? styles.open : ''}`} aria-label="Menu">
+        <button
+          type="button"
+          className={`${styles.home} ${homeActive ? styles.homeActive : ''}`}
+          onClick={onOpenHome}
+          aria-current={homeActive ? 'page' : undefined}
+        >
+          🎯 Today's lesson
+        </button>
         <button type="button" className={styles.newChat} onClick={onNewChat}>
           + New chat
         </button>
 
+        <div className={styles.listHeading}>Chats</div>
         <ul className={styles.list}>
           {chats.length === 0 && <li className={styles.none}>No saved chats yet.</li>}
           {chats.map((c) => (
@@ -70,9 +80,6 @@ export default function Sidebar({
           ))}
         </ul>
 
-        <button type="button" className={styles.settings} onClick={onOpenCourse}>
-          📚 Course
-        </button>
         <button type="button" className={styles.settings} onClick={onOpenSettings}>
           ⚙ Settings
         </button>
