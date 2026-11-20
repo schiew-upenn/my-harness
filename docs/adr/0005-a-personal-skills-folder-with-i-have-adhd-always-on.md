@@ -51,7 +51,7 @@ What was set up (outside this repo, so not in git):
 ## Open question
 
 ### QST-CHAT-PAGE-ADHD: Should the chat page also get an "ADHD-friendly" preset?
-- Status: unanswered
+- Status: answered
 - Why asking: This record only changes how *Claude Code* answers you. The AI in your chat page (through OpenRouter) still answers the old way. The Instructions box from Week 1 could offer these rules as a fourth preset.
 - Need: pick a letter (or override — any shape answers)
 
@@ -63,7 +63,13 @@ Options:
 **B — not now.** *Rationale*: Week 1's exercise (writing your own instructions, [ADR-0004](0004-week-1-prompting-and-instructions.md) iteration 4) is still open, and turning these rules into your own instructions *is* that exercise. Doing it yourself teaches more than me adding a preset. *Confidence*: 0.6, because it depends on whether you want the practice or just the result. *If wrong*: if you'd rather have it ready to use in the page now, flip to **A**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]
+A
+
+---
+
+## Action Items
+
+- [ ] Add an "ADHD-friendly" preset to the chat page's Instructions box (QST-CHAT-PAGE-ADHD = A, 2026-11-19), with a test - Owner: Wren 5.5
 
 ---
 
