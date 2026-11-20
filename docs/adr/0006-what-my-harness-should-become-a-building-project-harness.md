@@ -9,7 +9,7 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # What my-harness should become: a building-project harness
 
 - **Date**: 2026-11-19
-- **Iteration**: 1
+- **Iteration**: 2
 - **Status**: Draft
 - **Deciders**: Kathryn Chiew (human), Wren 5.5 (Claude Opus 5.5)
 
@@ -50,7 +50,7 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 *Answer in order if you can. QST-USE-CASE and QST-MEANING decide most of the rest.*
 
 ### QST-USE-CASE: Picture next week. When would you open my-harness, and what would you be doing?
-- Status: unanswered
+- Status: answered
 - Why asking: Every other choice depends on a real moment of use. Right now the page is a general chat box, which is why it's hard to say what belongs on it. One real example tells me more than any list of options.
 - Need: 1–3 sentences describing a real situation (any shape answers)
 
@@ -66,12 +66,12 @@ Examples to get you started, not to pick from:
 **Describe a real moment, not an ideal one.** *Rationale*: ideal descriptions ("a place to build everything") fit every design, so they don't decide anything; a real Tuesday-afternoon moment rules most designs out. *Confidence*: 0.85 — because this is how the earlier answers worked best: your concrete override in ADR-0002 QST-PURPOSE produced the whole course. *If wrong*: if no real moment comes to mind, say so. That's an answer too: it means the page should be shaped around the course (QST-COURSE-FIT B) until a real use shows up.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]
+I would want to open it and it shows me a new lesson on something i can build with AI, maybe it's the next lesson. It also tells me why this might be useful, how people with CS degrees think about AI and automating tasks for example
 
 ---
 
 ### QST-MEANING: What does "building-project harness" mean to you?
-- Status: unanswered
+- Status: answered
 - Why asking: "Harness" means something specific in AI: the program wrapped around a model, meaning its instructions, its tools, its memory, and the loop that runs it. Claude Code is a harness; your chat page is a tiny one. On top of that, "my-harness" is both the web page and the VS Code way of working. The four readings below lead to very different next builds.
 - Need: pick a letter, or a combination like "A+B" (or override — any shape answers)
 
@@ -86,12 +86,12 @@ Options:
 **B — build studio.** *Rationale*: it's the only reading where opening the page means making something, which matches "building project" and the "vibe coding class" wording in ADR-0003. It works within ADR-0001's rules: the AI-made page runs in a sealed preview frame (a sandboxed iframe) that can't read your saved key. And the later course weeks still fit, since tools (Week 3) become things the studio's AI can do. *Confidence*: 0.45 — because "harness" honestly fits all four, and only you know which one you meant; this is yours to route. *If wrong*: if what you mainly want is to stay organized across the weeks, flip to **A**; if you want to understand how AI tools work, **C**; if you weren't talking about the web page at all, **D**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]
+B I want it to be like my little AI Studio, but then it should also give me recommendations or somethign on what to build, almost like it's going to keep prompting me and asking me questions on what i want to build and give me suggestions on how to build it. It should be multiple choice or something, detailed, and also smart enough that it can understand what i want out of it
 
 ---
 
 ### QST-AUDIENCE: Who will use or see the page?
-- Status: unanswered
+- Status: answered
 - Why asking: This decides how much explaining the page needs (a first-visit guide for strangers, or nothing) and how closely it has to stick to the professor's original assignment. If it's graded, the due date also decides how big the next steps can be.
 - Need: pick a letter; if it's graded, add the due date and what the professor checks
 
@@ -105,12 +105,12 @@ Options:
 **B — me, and the professor looks at it.** *Rationale*: the page started as the professor's assignment (ADR-0001, Originating Context), so assuming they will look at it is the safe default. *Confidence*: 0.5 — because I don't know whether it's graded, or when. *If wrong*: if no one but you will ever open it, flip to **A**: fewer rules to keep.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]
+A
 
 ---
 
 ### QST-RULES: What kind of "rules" do you need?
-- Status: unanswered
+- Status: answered
 - Why asking: You said "there are no rules." There are plenty, but they're written for Claude, not for you, so from your side it feels like none. "Rules" could mean any of these.
 - Need: pick letters, any combination (or override — any shape answers)
 
@@ -125,12 +125,12 @@ Options:
 **A + C — a "how I use this" page with the session routine inside it.** *Rationale*: the only guides in the repo are written for AI (`CLAUDE.md`, and `docs/inbox/ONBOARDING.md` for AI seats), and your confusion is about how *you* use the project. That's exactly A, and C is the heart of it. B already partly exists as "Rules that follow from these" in ADR-0001. D is tempting, but `CLAUDE.md` notes the course asks for this template, so explaining it beats deleting it. *Confidence*: 0.65 — because your words ("how I should use it") point at A, but "no rules" could also mean B. *If wrong*: if by "rules" you meant how the page itself should behave, flip to **B**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]
+C
 
 ---
 
 ### QST-UI-MESS: Which parts of the page feel messy?
-- Status: unanswered
+- Status: answered
 - Why asking: "Messy" could mean too many things, things in the wrong place, confusing words, or the look. These are the parts on the page today (from `src/App.jsx`). Knowing which ones bother you tells me what to cut, move or rename.
 - Need: pick letters, any number, plus one sentence on what bugs you. A screenshot with things circled works too.
 
@@ -147,12 +147,12 @@ Options:
 **F — the whole thing.** *Rationale*: reading `src/App.jsx`, the page stacks three panels that open over each other (Settings, Course, and the chat list on small screens), two warning banners, and the Instructions bar, all with about the same importance, and nothing marks the main job. That's what happens when there's no answer to QST-MEANING yet. *Confidence*: 0.4 — because this is my reading of the code, not your experience of the page. *If wrong*: if one or two parts bother you and the rest is fine, your letters replace this pick, and the fix is small (rename or move those parts) instead of a redesign.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]
+It just looks like a generic AI-chat box page if that makes sense, there's no steps, achievements, nothing
 
 ---
 
 ### QST-COURSE-FIT: How should the weekly course fit into this?
-- Status: unanswered
+- Status: answered
 - Why asking: Last week you decided the page covers course Weeks 1–3, and Weeks 4–8 each get their own repo (ADR-0003, QST-COURSE-RULES = A). A building-project harness could change that.
 - Need: pick a letter (or override — any shape answers)
 
@@ -166,11 +166,58 @@ Options:
 **A — keep as decided, for now.** *Rationale*: only Week 1 has been done (ADR-0004), and the right home for the course depends on QST-MEANING, so changing it before that's answered could mean changing it twice. *Confidence*: 0.55 — because this depends on another question. *If wrong*: if you answer QST-MEANING with **A** (project home) or **B** (build studio), flip to **B** here; if you marked the Course panel (E) in QST-UI-MESS, consider **C**.
 
 **ANS:** (by Kathryn Chiew)
+A
+
+---
+
+### QST-BUILD-ORDER: Which piece of the new studio gets built first?
+- Status: unanswered
+- Why asking: Your answers describe four pieces (see "Decision" below): a lesson home screen, a question-asking coach, a build studio with live preview, and steps and achievements. That's several weeks of work at your pace of 1–2 hours a week (ADR-0003, QST-PACE), so one has to come first. Follow-up to QST-USE-CASE and QST-MEANING (iteration 2).
+- Need: pick a letter (or override — any shape answers)
+
+Options:
+- **A — lesson home + progress**: The page opens on "Today's lesson": what you'll build, why it's useful, how CS people think about it, with the lesson's steps to tick off and an achievement when it's done. The chat moves one click away. Uses no AI credit. About one session.
+- **B — the coach**: A "What should I build?" flow. The AI asks you multiple-choice questions, one at a time, works out what you want, then suggests a project and how to build it. Uses a little credit per conversation. About one to two sessions.
+- **C — the live preview studio**: You describe a small app, the AI writes it, and it runs next to the chat in a sealed preview window. Keep asking for changes until it works, then download it. About two sessions.
+
+**Recommendation**: (by Wren 5.5, Claude Opus 5.5, 2026-11-19)
+
+**A — lesson home + progress.** *Rationale*: it's exactly your QST-USE-CASE answer ("I would want to open it and it shows me a new lesson"), and it fixes your QST-UI-MESS complaint (no steps, no achievements) right away. It also needs no AI calls, so it can't spend your $10 key. B and C then plug into the lesson screen as its "start building" buttons. *Confidence*: 0.7 — because your own words name this first moment; it drops if the coach is what excites you most. *If wrong*: if the multiple-choice coach is the part you most want to see, flip to **B**; if seeing something you built run on screen matters most, **C**.
+
+**ANS:** (by Kathryn Chiew)
+[Fill this in]
+
+---
+
+### QST-LESSON-SOURCE: Who writes the lessons the page shows?
+- Status: unanswered
+- Why asking: You want the page to show a lesson with why it's useful and how CS people think about it. Those words have to come from somewhere, and the choice decides quality, cost and how up to date the lessons are. It also changes ADR-0003's routine, where Wren teaches each lesson here in VS Code (step 1b). Follow-up to QST-USE-CASE (iteration 2).
+- Need: pick a letter (or override — any shape answers)
+
+Options:
+- **A — written ahead by Wren**: Each lesson is written once, checked, and built into the page. Free to show, never wrong in surprising ways, but it only changes when we add the next one together.
+- **B — written live by the AI**: The page asks the AI (with your key) to write the lesson each time you open it. Always fresh and can adapt to you, but costs a little each time and can make mistakes you won't catch.
+- **C — both**: Wren writes the core of each lesson ahead (what, why, how CS people think). An "Ask more" button lets the page's AI go deeper on whatever you're curious about.
+
+**Recommendation**: (by Wren 5.5, Claude Opus 5.5, 2026-11-19)
+
+**C — both.** *Rationale*: your Week 1 catch (ADR-0003, iteration 3: "there was no lesson taught") showed that lessons need to be really taught, which a checked, pre-written core guarantees. Your QST-MEANING answer asks for something "smart enough that it can understand what I want", which is what the "Ask more" part gives. A pre-written core also keeps everyday use free. *Confidence*: 0.65 — because it splits the difference; your preference between reliable and fresh decides it. *If wrong*: if you'd rather every lesson come from the AI so it can be about anything, flip to **B**; if you want zero AI spending on lessons, **A**.
+
+**ANS:** (by Kathryn Chiew)
 [Fill this in]
 
 ---
 
 ## Supporting Materials
+
+### DOC: the session routine (QST-RULES = C)
+*Draft. It already exists as "How each week runs" in ADR-0003, but buried in a record. Here it is in five steps, to be shown in the page and pinned in the repo.*
+
+1. **Open the page.** It shows this week's lesson and where you left off.
+2. **Tell Claude in VS Code:** "Week N, teach me." Wren teaches the lesson in the chat and ends with one check question.
+3. **Decide.** Answer the week's 1–2 questions in its record (ADR).
+4. **Build and ship.** Build together; the tests pass; push, and it's live.
+5. **Reflect and tick it off.** Write 2–3 sentences on what you learned, then tick the lesson in the page, which earns its achievement.
 
 ### FIL: what to look at
 - `src/App.jsx`: the whole page layout. The parts listed in QST-UI-MESS come from here.
@@ -181,14 +228,38 @@ Options:
 
 ## Decision
 
-*Pending: filled after Kathryn answers.*
+### Chosen (answered by Kathryn Chiew, 2026-11-19)
+
+- **Use, QST-USE-CASE**: when she opens the page, it shows her the next lesson on something she can build with AI, why it's useful, and how people with CS degrees think about AI and automating tasks.
+- **Meaning, QST-MEANING = B, build studio, plus a coach**: "my little AI Studio" that also keeps asking her questions about what she wants to build, multiple choice and detailed, gives suggestions on how to build it, and is "smart enough that it can understand what I want out of it."
+- **Audience, QST-AUDIENCE = A, just me**: no first-visit guide or plain-for-strangers wording needed; the page can be personal.
+- **Rules, QST-RULES = C, a session routine**: the same short checklist every session (draft in Supporting Materials).
+- **Layout, QST-UI-MESS (override)**: "It just looks like a generic AI-chat box page… there's no steps, achievements, nothing." The fix isn't tidying panels; it's giving the page visible progress.
+- **Course, QST-COURSE-FIT = A, keep as decided**: the page covers Weeks 1–3; Weeks 4–8 get their own repos.
+
+### What this adds up to
+The page turns from a chat box into a **studio built around lessons**, in four pieces:
+1. **Lesson home**: opens on "Today's lesson" (what, why, how CS people think).
+2. **Coach**: multiple-choice questions that work out what you want to build, then suggest how.
+3. **Build studio**: the AI writes a small app that runs in a sealed live preview.
+4. **Steps and achievements**: each lesson's steps to tick off, and a visible record of what's done.
+
+The plain chat stays, one click away. ADR-0001's rules still hold: GitHub Pages only, the key only ever goes to OpenRouter, and replies never run as code on the main page (the preview runs in a sandboxed iframe that can't read the key).
+
+### Tension to watch
+COURSE-FIT = A keeps Weeks 4–8 in their own repos, while the page becomes the place lessons are shown. These fit together if the page *shows* every week's lesson and progress, while Weeks 4–8 are *built* elsewhere. If that's not what Kathryn means, QST-COURSE-RULES in ADR-0003 reopens.
+
+*The remaining choices are QST-BUILD-ORDER and QST-LESSON-SOURCE; status stays Draft until they're answered.*
 
 ---
 
 ## Action Items
 
-- [ ] Answer QST-USE-CASE and QST-MEANING first, then the rest - Owner: Kathryn Chiew
-- [ ] Process the answers, fill the Decision section, propose the first build - Owner: Wren 5.5
+- [x] Answer the six questions - Owner: Kathryn Chiew
+- [x] Process the answers and fill the Decision section - Owner: Wren 5.5
+- [ ] Answer QST-BUILD-ORDER and QST-LESSON-SOURCE - Owner: Kathryn Chiew
+- [ ] Put the session routine in the repo (and later in the page) - Owner: Wren 5.5
+- [ ] Build the first piece, with tests, and push it live - Owner: Wren 5.5 with Kathryn Chiew
 
 ---
 
@@ -199,6 +270,12 @@ Options:
 - Contributors: Kathryn Chiew (the ask), Wren 5.5 (questions, recommendations)
 - Changes: six questions on use, meaning, audience, rules, layout and course fit
 - Outcome: Draft; awaiting answers
+
+### Iteration 2 (2026-11-19)
+- Trigger: Kathryn answered all six (USE-CASE: open it and see the next lesson; MEANING: B plus a multiple-choice coach; AUDIENCE: A; RULES: C; UI-MESS: "no steps, achievements, nothing"; COURSE-FIT: A)
+- Contributors: Kathryn Chiew (answers), Wren 5.5 (processing)
+- Changes: Decision filled with a four-piece studio; session routine drafted; two follow-up questions minted (QST-BUILD-ORDER, QST-LESSON-SOURCE); COURSE-FIT tension noted
+- Outcome: stays Draft until the follow-ups are answered
 
 ---
 
