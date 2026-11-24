@@ -1,8 +1,10 @@
 // The lessons the home screen shows, and each lesson's steps (docs/adr/0006).
 //
 // QST-LESSON-SOURCE = C: Wren writes each lesson's core here, ahead of time
-// (why it's useful, how CS people think about it); the "Ask more" buttons let
-// the page's AI go deeper, using the student's own key.
+// (why it's useful, and where it shows up in the real world); the "Ask more"
+// buttons let the page's AI go deeper, using the student's own key.
+// `realWorld` was "How CS people think about it" until Kathryn asked, on
+// 2026-11-24, for real apps and jobs instead of what CS people think.
 // QST-RULES = C: every lesson's steps are the five-step session routine.
 //
 // The week list itself (title, what you'll learn, what you'll build) lives in
@@ -15,79 +17,81 @@ export const LESSON_TEXT = {
       'Every AI tool starts with instructions. The same model can be a strict grader, a friendly tutor or a code ' +
       'reviewer: the only difference is the text it reads first. Writing that text well is the cheapest way to ' +
       'make an AI more useful.',
-    csView:
-      'Engineers call this the "system prompt" and treat it like code: they write it carefully, test it on the ' +
-      'same questions, and change one thing at a time to see what improves. It is the first thing they check ' +
-      'when an AI app behaves badly.',
+    realWorld:
+      'Every AI product you use has a hidden "system prompt": ChatGPT, Claude, customer-support bots. Companies ' +
+      'write it carefully, test it on the same questions, and change one line at a time to see what improves. ' +
+      'When an AI app behaves badly, it is the first thing that gets checked.',
   },
   w2: {
     why:
       'There are hundreds of models, and the best one for a quick question is not the best one for hard code. ' +
       'Picking well saves money (your key has a $10 limit) and makes answers faster.',
-    csView:
-      'Engineers think in trade-offs: quality vs. speed vs. cost. They measure usage in tokens (pieces of words), ' +
-      'compare models on the same task, and use the cheapest model that is good enough, saving expensive ones ' +
-      'for the hard parts.',
+    realWorld:
+      'Apps that use AI pick different models for different jobs: a cheap, fast one for quick replies, a stronger ' +
+      'and pricier one for hard problems. Usage is billed in tokens (pieces of words), so the cheapest model that ' +
+      'is good enough usually wins.',
   },
   w3: {
     why:
       'On its own, an AI can only write text. Give it tools (a calculator, a search, a way to send an email) and ' +
       'it can actually do things. This is the step from chatbot to agent.',
-    csView:
-      'Engineers describe each tool to the model like a function: its name, what it does, what inputs it needs. ' +
-      'The model decides when to call it; your code runs it and hands back the result. Every agent, including ' +
-      'Claude Code, works this way.',
+    realWorld:
+      'When ChatGPT searches the web or Claude Code edits a file, that is tool use. Each tool is described to the ' +
+      'model with a name, what it does, and what inputs it needs. The model decides when to call it; the app runs ' +
+      'it and hands back the result.',
   },
   w4: {
     why:
       "This is how your professor's course runs itself: an AI job that wakes up on a schedule, does a task, and " +
       'sends you the result, without you opening anything.',
-    csView:
-      'Engineers ask: what do I do over and over, the same way each time? That is a candidate for automation. ' +
-      'They use schedulers (like GitHub Actions on a timer), keep secrets like API keys in safe storage, and log ' +
-      'every run so they can see what happened.',
+    realWorld:
+      'Lots of everyday work runs on its own: reports that land in your inbox each morning, checks that run on ' +
+      'every code change. These jobs run on a schedule (like GitHub Actions on a timer), keep secrets like API ' +
+      'keys in safe storage, and log every run so anyone can see what happened.',
   },
   w5: {
     why:
       'Instead of re-typing the same long instructions, you package them once as a skill, and the AI loads it when ' +
       'the task calls for it. You already use one: i-have-adhd.',
-    csView:
-      'Engineers treat skills like reusable functions for AI: write once, name clearly, say when to use it, share ' +
-      'it with the team. Good skills are short, specific, and tested on real requests.',
+    realWorld:
+      'Your i-have-adhd skill is one: written once, it shapes every answer Claude gives you. Teams share skills ' +
+      "the same way, so everyone's AI follows the same steps. Good skills are short, specific, and tested on real " +
+      'requests.',
   },
   w6: {
     why:
       "AI models don't know your course notes or your files. RAG lets an AI look up the right pieces of your " +
       'documents first, then answer from them, and show where the answer came from.',
-    csView:
-      'Engineers split documents into small chunks, find the chunks most related to the question (often with ' +
-      '"embeddings", a way to measure meaning), and give only those to the model. Citing sources lets you check ' +
-      'the answer instead of just trusting it.',
+    realWorld:
+      'Help-center chatbots and "chat with your PDF" tools work this way: documents are split into small chunks, ' +
+      'the chunks closest to your question are found (often with "embeddings", a way to measure meaning), and only ' +
+      'those go to the model. Citing sources lets you check the answer instead of just trusting it.',
   },
   w7: {
     why:
       'MCP is a standard plug that connects AI apps to outside tools and data: calendars, files, databases. Build ' +
       'one connector and any MCP-ready AI can use it.',
-    csView:
-      'Engineers like standards because they stop everyone rebuilding the same thing. MCP is to AI tools roughly ' +
-      'what USB is to devices: one shape of plug, many devices. This project already uses one (adrs4ai).',
+    realWorld:
+      'This project already uses one: adrs4ai, which lets Claude read and answer your ADR questions. MCP is to AI ' +
+      'tools roughly what USB is to devices: one shape of plug, many devices, so one connector works with any ' +
+      'MCP-ready AI.',
   },
   w8: {
     why:
       'Some jobs are too big for one AI. A crew splits the work across agents with roles (one plans, one builds, ' +
       "one reviews) that hand work to each other, like your professor's setup.",
-    csView:
-      'Engineers design crews like small teams: clear roles, clear hand-offs (often written messages or files), ' +
-      'and a human who checks the important decisions. More agents is not automatically better: every hand-off ' +
-      'is a place where things can get lost.',
+    realWorld:
+      "Your professor's course runs on a crew like this. Real crews work like small teams: each agent has one " +
+      'clear role, hand-offs are written messages or files, and a human checks the important decisions. More ' +
+      'agents is not automatically better: every hand-off is a place where things can get lost.',
   },
   capstone: {
     why:
       'This is where you design something you actually want, using everything from the earlier weeks, and keep ' +
       'the records that show why you built it the way you did.',
-    csView:
-      'Engineers start from the problem, not the tool: who is this for, what should happen, how will I know it ' +
-      'works? Then they pick the smallest set of pieces that solves it, ship a first version fast, and improve it ' +
+    realWorld:
+      'Real projects start from the problem, not the tool: who is this for, what should happen, how will I know it ' +
+      'works? Then comes the smallest set of pieces that solves it, a first version shipped fast, and improvements ' +
       'from real use.',
   },
 };
@@ -96,7 +100,7 @@ export const LESSON_TEXT = {
 export function lessonById(id) {
   const week = SYLLABUS.find((w) => w.id === id);
   if (!week) return null;
-  return { ...week, ...(LESSON_TEXT[id] ?? { why: '', csView: '' }) };
+  return { ...week, ...(LESSON_TEXT[id] ?? { why: '', realWorld: '' }) };
 }
 
 // The session routine (ADR-0006, QST-RULES = C), as every lesson's checklist.
@@ -106,7 +110,7 @@ export const STEPS = [
     id: 'read',
     title: 'Read this lesson',
     detail: () => 'Read the lesson card below, top to bottom.',
-    doneWhen: 'You have read all of it, including "How CS people think about it".',
+    doneWhen: 'You have read all of it, including "In the real world".',
   },
   {
     id: 'learn',
@@ -198,7 +202,7 @@ export function undoStep(state, lessonId) {
 export const ASK_MORE = [
   { id: 'simpler', label: 'Explain it more simply', prompt: "Explain this lesson more simply, as if I'm new to programming." },
   { id: 'example', label: 'Give me a real example', prompt: 'Give me one real-world example of this, step by step.' },
-  { id: 'work', label: 'How do engineers use this?', prompt: 'How do software engineers use this at work? Give one concrete story.' },
+  { id: 'work', label: 'Where is this used for real?', prompt: 'Where is this used in real apps or jobs? Give one concrete story.' },
 ];
 
 export function askMoreInstructions(lesson) {
@@ -208,7 +212,7 @@ export function askMoreInstructions(lesson) {
     `What they'll learn: ${lesson.learn}`,
     `What they'll build: ${lesson.build}`,
     `Why it's useful: ${lesson.why}`,
-    `How CS people think about it: ${lesson.csView}`,
+    `In the real world: ${lesson.realWorld}`,
     'Lead with the main point. Use plain language, short paragraphs, and one concrete example. End with one question that checks their understanding.',
   ].join('\n');
 }

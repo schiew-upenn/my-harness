@@ -23,7 +23,7 @@ describe('lesson content', () => {
     for (const week of SYLLABUS) {
       const lesson = lessonById(week.id);
       expect(lesson.why.length, `${week.id} why`).toBeGreaterThan(40);
-      expect(lesson.csView.length, `${week.id} csView`).toBeGreaterThan(40);
+      expect(lesson.realWorld.length, `${week.id} realWorld`).toBeGreaterThan(40);
     }
   });
 
@@ -102,7 +102,7 @@ describe('Ask more', () => {
     const body = JSON.parse(init.body);
     expect(body.messages[0].role).toBe('system');
     expect(body.messages[0].content).toContain('Tool use');
-    expect(body.messages[0].content).toContain(lesson.csView);
+    expect(body.messages[0].content).toContain(lesson.realWorld);
     expect(body.messages[1]).toEqual({ role: 'user', content: ask.prompt });
   });
 });

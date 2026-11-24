@@ -129,8 +129,8 @@ export default function LessonHome({ state, busy, onFinishStep, onUndoStep, onAs
           <p>{lesson.build}</p>
           <h3 className={styles.sub}>Why it's useful</h3>
           <p>{lesson.why}</p>
-          <h3 className={styles.sub}>How CS people think about it</h3>
-          <p>{lesson.csView}</p>
+          <h3 className={styles.sub}>In the real world</h3>
+          <p>{lesson.realWorld}</p>
 
           <div className={styles.askRow}>
             <span className={styles.askLabel}>Ask more:</span>
