@@ -9,7 +9,7 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # An idea inbox: catch random ideas and think them through
 
 - **Date**: 2026-11-24
-- **Iteration**: 1
+- **Iteration**: 2
 - **Status**: Draft
 - **Deciders**: Kathryn Chiew (human), Wren 5.5 (Claude Opus 5.5)
 
@@ -87,6 +87,25 @@ I think i want it sort of a mix of B and D where we think through it, ponder upo
 
 ---
 
+### QST-PONDER-WHERE: Where do you ponder an idea "with Wren"?
+- Status: unanswered
+- Why asking: Follow-up to QST-IDEA-THINK. Your ideas are saved in the page (in the browser). Wren is Claude in VS Code, which can't see what the page saves. So step 3 of the ladder either moves the idea to VS Code, or happens inside the page with the page's AI playing Wren's role.
+- Need: pick a letter (or override — any shape answers)
+
+Options:
+- **A — in the page**: A "Ponder" button on a thought-through idea opens a chat that already knows the idea and its plan, with an AI that acts as a thinking partner (asks one question at a time, suggests, pushes back). Uses your OpenRouter key, a few cents per chat. Everything stays in one place.
+- **B — in VS Code with Wren**: A "Copy for Wren" button copies the idea and its plan; you paste it into the Claude panel in VS Code. Wren can also look at your code and start building right away. Free (uses your Claude account), but you switch windows.
+- **C — both**: Ponder in the page for small ideas; "Copy for Wren" when it's time to build.
+
+**Recommendation**: (by Wren 5.5, Claude Opus 5.5, 2026-11-24)
+
+**C — both.** *Rationale*: pondering is quick and happens right after "Think it through", so keeping it in the page avoids switching windows. Building happens in VS Code anyway (ADR-0006's session routine, step "Learn it with Wren"), so "Copy for Wren" is the hand-off. *Confidence*: 0.65 — because "with Wren" may mean you specifically want Claude in VS Code, not the page's AI. *If wrong*: if you meant VS Code, pick **B**; if you'd rather never leave the page, pick **A**.
+
+**ANS:** (by Kathryn Chiew)
+[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+
+---
+
 ## Supporting Materials
 
 ### DOC: the ladder, step by step (QST-IDEA-THINK = D)
@@ -106,14 +125,31 @@ Each idea can also be **parked** (keep, not now) or **dropped** at any step.
 
 ## Decision
 
-*Waiting for Kathryn's answers to QST-IDEA-CATCH and QST-IDEA-THINK.*
+### Chosen (answered by Kathryn Chiew, 2026-11-24)
+
+- **Catch, QST-IDEA-CATCH = A, 💡 box in the page**: one button, one line, Enter, saved. Private; stays in the browser where it was typed.
+- **Think, QST-IDEA-THINK = a mix of B and D**: "we think through it, ponder upon the idea a little bit with wren, and then do something with it."
+
+### The ladder, as answered
+
+1. **Caught**: one line in the 💡 box. No questions.
+2. **Thought through**: "Think it through" asks 3 multiple-choice questions, then writes a short plan (B).
+3. **Pondered with Wren**: a short back-and-forth about the idea. No ADR needed.
+4. **Do something**: build it, park it, or drop it. Only "build it" gets an ADR (D's last steps).
+
+Compared with D as drafted: the ADR step is no longer required for every idea. Ideas that get built still get one.
+
+### Open: where the pondering happens
+"With Wren" can mean two different places, and the ideas live in the page, which Wren in VS Code cannot read. See QST-PONDER-WHERE.
 
 ---
 
 ## Action Items
 
-- [ ] Answer QST-IDEA-CATCH and QST-IDEA-THINK - Owner: Kathryn Chiew
-- [ ] Build the catching piece, with tests, and push it live - Owner: Wren 5.5
+- [x] Answer QST-IDEA-CATCH and QST-IDEA-THINK - Owner: Kathryn Chiew
+- [ ] Answer QST-PONDER-WHERE - Owner: Kathryn Chiew
+- [ ] Build the 💡 box (step 1, caught), with tests, and push it live - Owner: Wren 5.5
+- [ ] Build "Think it through" (step 2), then pondering (step 3) - Owner: Wren 5.5
 
 ---
 
@@ -124,6 +160,12 @@ Each idea can also be **parked** (keep, not now) or **dropped** at any step.
 - Contributors: Kathryn Chiew (the ask), Wren 5.5 (questions, recommendations)
 - Changes: two questions (how to catch, what happens next) and the ladder draft
 - Outcome: Draft; waiting for answers
+
+### Iteration 2 (2026-11-24)
+- Trigger: Kathryn answered QST-IDEA-CATCH = A and QST-IDEA-THINK = "a mix of B and D"
+- Contributors: Kathryn Chiew (answers), Wren 5.5 (processing)
+- Changes: Decision filled: 💡 box, and a four-step ladder (caught, thought through, pondered with Wren, do something), with an ADR only for ideas that get built. Follow-up QST-PONDER-WHERE minted, because the page's saved ideas can't be seen by Wren in VS Code.
+- Outcome: stays Draft until QST-PONDER-WHERE is answered; step 1 (the 💡 box) can be built now
 
 ---
 
