@@ -318,6 +318,12 @@ COURSE-FIT = A keeps Weeks 4–8 in their own repos, while the page becomes the 
 - Changes: QST-ONE-AT-A-TIME recorded (answered A). The steps card moved to the top of the home screen. All five steps are listed; finished ones show ✓, the current one is highlighted ("You are here") with a "Done when" line and an "I finished this step" button, later ones are faded. Finishing step 5 moves the screen to the next lesson with a "Week N finished!" banner. Later lessons can be read but their steps are locked. "Undo" takes back the last finished step. Steps ticked out of order in the checkbox version count only up to the first gap (regression test). 54 tests total.
 - Outcome: stays Accepted
 
+### Iteration 6 (2026-11-24)
+- Trigger: Kathryn, during "Week 1, teach me": don't say "How CS people think about it" explicitly; offered four names, she picked "In the real world"
+- Contributors: Kathryn Chiew (the ask, the pick), Wren 5.5 (rewrite)
+- Changes: the lesson card's third section is now "In the real world", and all 9 lessons' text was rewritten to describe real apps and jobs (`LESSON_TEXT[...].realWorld`, was `csView`). The "Ask more" button "How do engineers use this?" became "Where is this used for real?". CLAUDE.md's "Week N, teach me" note now teaches the same way. QST-USE-CASE's answer above keeps her original words as history.
+- Outcome: stays Accepted
+
 ---
 
 ## Glossary (optional)
