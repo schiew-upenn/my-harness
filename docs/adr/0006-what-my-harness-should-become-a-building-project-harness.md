@@ -9,7 +9,7 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 # What my-harness should become: a building-project harness
 
 - **Date**: 2026-11-19
-- **Iteration**: 3
+- **Iteration**: 5
 - **Status**: Accepted
 - **Deciders**: Kathryn Chiew (human), Wren 5.5 (Claude Opus 5.5)
 
@@ -208,6 +208,24 @@ C
 
 ---
 
+### QST-ONE-AT-A-TIME: Should a lesson's steps open one at a time, or stay a free checklist?
+- Status: answered
+- Why asking: The first lesson home (iteration 4) showed five checkboxes that could be ticked in any order, on any lesson. Kathryn asked for the opposite (iteration 5); this records her ask as a decision so the code can cite it.
+- Need: pick a letter (or override — any shape answers)
+
+Options:
+- **A — one at a time**: All five steps are always listed, so you can see what's coming. Only the step you're on is open, with a "Done when" line and an "I finished this step" button; the next step opens after it. Lessons work the same way: a later lesson can be read, but its steps stay locked until the earlier one is finished. An "Undo" takes back only the last finished step.
+- **B — free checklist**: The iteration 4 version. Any step of any lesson can be ticked in any order.
+
+**Recommendation**: (by Wren 5.5, Claude Opus 5.5, 2026-11-24)
+
+**A — one at a time.** *Rationale*: it is Kathryn's own ask, and it matches the i-have-adhd rules she chose in ADR-0005: "Starting is the hardest step. The first action must be obvious, small, and doable now". A free checklist shows five things at once and leaves the choosing to her. *Confidence*: 0.85 — because she asked for it in so many words. *If wrong*: if being locked out of a step (e.g. wanting to build before deciding) causes friction in real use, flip to **B** for steps but keep lessons in order.
+
+**ANS:** (by Kathryn Chiew, 2026-11-24)
+A: "I have ADHD, so please make this a step by step thing in the lessons, so only after i finish something, then we will move on the next things, please list out the steps in the process even if i am still in certain steps, then so that i can build it out"
+
+---
+
 ## Supporting Materials
 
 ### DOC: the session routine (QST-RULES = C)
@@ -253,6 +271,7 @@ COURSE-FIT = A keeps Weeks 4–8 in their own repos, while the page becomes the 
 
 - **First piece, QST-BUILD-ORDER = A, lesson home + progress**: the page opens on "Today's lesson", with its steps to tick off and achievements. No AI calls. The coach (B) and the live preview studio (C) come after, as the lesson screen's "start building" buttons.
 - **Lessons, QST-LESSON-SOURCE = C, both**: Wren writes each lesson's core ahead of time (what you'll build, why it's useful, how CS people think about it). An "Ask more" button lets the page's AI go deeper, using Kathryn's key.
+- **Steps, QST-ONE-AT-A-TIME = A, one at a time** (2026-11-24): every step is listed, but only the current one is open; finish it to open the next. Lessons go in order too.
 
 ---
 
@@ -292,6 +311,12 @@ COURSE-FIT = A keeps Weeks 4–8 in their own repos, while the page becomes the 
 - Contributors: Wren 5.5 (build), Kathryn Chiew (direction)
 - Changes: the page now opens on "Today's lesson" (`src/components/LessonHome.jsx`): the lesson's core text for all 9 lessons (`src/lib/lessons.js`), five steps per lesson (ticking all five finishes the lesson), "Your path" through the course, 11 achievements worked out from progress (`src/lib/achievements.js`), and three "Ask more" buttons that open a chat already holding the lesson as its instructions. The old Course panel was removed: the home screen does its job (it was QST-COURSE-FIT's "progress tracker"). Weeks ticked off in the old panel show as fully done. 13 new tests (49 total); checked by screenshot at desktop and narrow widths.
 - Outcome: stays Accepted; first piece shipped
+
+### Iteration 5 (2026-11-24)
+- Trigger: Kathryn: "make this a step by step thing in the lessons, so only after i finish something, then we will move on the next things"
+- Contributors: Kathryn Chiew (the ask), Wren 5.5 (build, recording)
+- Changes: QST-ONE-AT-A-TIME recorded (answered A). The steps card moved to the top of the home screen. All five steps are listed; finished ones show ✓, the current one is highlighted ("You are here") with a "Done when" line and an "I finished this step" button, later ones are faded. Finishing step 5 moves the screen to the next lesson with a "Week N finished!" banner. Later lessons can be read but their steps are locked. "Undo" takes back the last finished step. Steps ticked out of order in the checkbox version count only up to the first gap (regression test). 54 tests total.
+- Outcome: stays Accepted
 
 ---
 
