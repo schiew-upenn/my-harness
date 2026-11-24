@@ -48,7 +48,7 @@ adr teaching map: the example is not the teaching — these are the up-links fro
 ## Questions
 
 ### QST-IDEA-CATCH: How should you catch an idea in under 10 seconds?
-- Status: unanswered
+- Status: answered
 - Why asking: This decides what gets built first, and it depends on where you are when ideas show up. The page saves to one browser on one device, and this repo is public, so "where" and "private" pull against each other.
 - Need: pick a letter (or override — any shape answers)
 
@@ -63,12 +63,12 @@ Options:
 **A — 💡 box in the page.** *Rationale*: it is the fastest to use (one button, one line), stays private, needs no setup, and takes about an hour to build. It also works on the phone if you open the page there. *Confidence*: 0.6 — because it depends on where your ideas come up, which only you know. *If wrong*: if most ideas come on your phone and you want them on the laptop too, pick **C** (or **B** if you'd rather not set up a second key).
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+A
 
 ---
 
 ### QST-IDEA-THINK: What happens to an idea after you catch it?
-- Status: unanswered
+- Status: answered
 - Why asking: This is where the project's thinking method comes in. Catching never asks questions; this decides how an idea gets thought through later, and by what.
 - Need: pick a letter (or override — any shape answers)
 
@@ -83,7 +83,7 @@ Options:
 **D — all three, as a ladder.** *Rationale*: the ladder is this repo's own method at a smaller size: catching = brain dump, "Think it through" = questions, ADR = decision, then build. The quick in-page step filters ideas before anything costs your time in VS Code. It also builds the ADR-0006 coach as a side effect. *Confidence*: 0.7 — because it matches the method you asked for; it drops if three stages feel like too many. *If wrong*: if you want ideas to go straight from list to building, pick **A**; if thinking it through in the page is enough and ADRs feel heavy, pick **B**.
 
 **ANS:** (by Kathryn Chiew)
-[Fill this in]   <!-- literal placeholder — parser-significant, do not paraphrase -->
+I think i want it sort of a mix of B and D where we think through it, ponder upon the idea, idea a little bit with wren, and then do something with it. Can we do that?
 
 ---
 
