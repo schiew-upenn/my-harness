@@ -8,7 +8,7 @@ import {
   activeChat, addChat, appendMessage, deleteChat, newChat, renameChat, selectChat, setInstructions, updateSettings,
 } from './lib/chats.js';
 import { sendChat } from './lib/openrouter.js';
-import { askMoreInstructions, toggleStep } from './lib/lessons.js';
+import { askMoreInstructions, finishStep, undoStep } from './lib/lessons.js';
 import LessonHome from './components/LessonHome.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import ChatView from './components/ChatView.jsx';
@@ -161,7 +161,8 @@ export default function App() {
           <LessonHome
             state={state}
             busy={sendingChatId !== null}
-            onToggleStep={(lessonId, stepId) => setState((s) => toggleStep(s, lessonId, stepId))}
+            onFinishStep={(lessonId) => setState((s) => finishStep(s, lessonId))}
+            onUndoStep={(lessonId) => setState((s) => undoStep(s, lessonId))}
             onAskMore={handleAskMore}
           />
         ) : (

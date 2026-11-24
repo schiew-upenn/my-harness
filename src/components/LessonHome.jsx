@@ -1,20 +1,36 @@
 // The home screen: "Today's lesson", its steps, the path through the course,
 // and achievements (docs/adr/0006: QST-BUILD-ORDER = A, lesson home +
 // progress). It replaces the old Course panel, whose job it now does.
+// Steps come first and open one at a time (QST-ONE-AT-A-TIME): all five are
+// listed, but only the step you are on has a "finished" button.
 import { useState } from 'react';
 import { SYLLABUS, nextLesson } from '../lib/syllabus.js';
-import { ASK_MORE, STEPS, lessonById, stepsDone } from '../lib/lessons.js';
+import { ASK_MORE, STEPS, currentStep, lessonById, lessonStatus, stepsDone } from '../lib/lessons.js';
 import { achievementsFor } from '../lib/achievements.js';
 import styles from './LessonHome.module.css';
 
-export default function LessonHome({ state, busy, onToggleStep, onAskMore }) {
+export default function LessonHome({ state, busy, onFinishStep, onUndoStep, onAskMore }) {
   const done = state.course.done;
   const next = nextLesson(done);
   // Which lesson is on screen: today's by default, or one picked from the path.
   const [viewingId, setViewingId] = useState(null);
+  // "Week 1 finished!" banner, shown right after the last step of a lesson.
+  const [justFinished, setJustFinished] = useState(null);
   const lesson = lessonById(viewingId ?? next?.id ?? SYLLABUS[SYLLABUS.length - 1].id);
-  const isToday = lesson.id === next?.id;
-  const ticked = stepsDone(state, lesson.id);
+  const status = lessonStatus(state, lesson.id);
+  const isToday = status === 'today';
+  const finished = stepsDone(state, lesson.id);
+  // The step you are on: only today's lesson has one (QST-ONE-AT-A-TIME).
+  const now = isToday ? currentStep(state, lesson.id) : null;
+  const nowIndex = now ? STEPS.indexOf(now) : -1;
+
+  function finish(step) {
+    const isLastStep = step.id === STEPS[STEPS.length - 1].id;
+    setJustFinished(isLastStep ? lesson.label : null);
+    // After the last step, the screen moves on to the next lesson by itself.
+    if (isLastStep) setViewingId(null);
+    onFinishStep(lesson.id);
+  }
   const lessonCount = SYLLABUS.filter((w) => done.includes(w.id)).length;
   const badges = achievementsFor(state);
   const earnedCount = badges.filter((b) => b.isEarned).length;
@@ -34,11 +50,76 @@ export default function LessonHome({ state, busy, onToggleStep, onAskMore }) {
           </span>
         </section>
 
-        {!next && <p className={styles.complete}>🎉 You finished the whole course.</p>}
+        {justFinished && (
+          <p className={styles.complete}>
+            🎉 {justFinished} finished!{next ? ` Next up: ${next.label}, ${next.title}.` : ''}
+          </p>
+        )}
+        {!next && !justFinished && <p className={styles.complete}>🎉 You finished the whole course.</p>}
+
+        <section className={styles.card} aria-label="Your steps">
+          <div className={styles.stepsHeader}>
+            <h3 className={styles.sectionTitle}>
+              Your steps · {lesson.label}
+            </h3>
+            <span className={styles.count}>
+              {now ? `Step ${nowIndex + 1} of ${STEPS.length}` : status === 'done' ? `All ${STEPS.length} done ✓` : 'Locked'}
+            </span>
+          </div>
+          {status === 'later' && (
+            <p className={styles.lockNote}>
+              🔒 Finish {next.label} first. You can read this lesson now; its steps open when you get here.
+            </p>
+          )}
+          <ol className={styles.steps}>
+            {STEPS.map((step, i) => {
+              const isDone = finished.includes(step.id);
+              const isNow = now?.id === step.id;
+              const isLastDone = isDone && i === finished.length - 1;
+              return (
+                <li
+                  key={step.id}
+                  className={`${styles.step} ${isDone ? styles.stepDone : isNow ? styles.stepNow : styles.stepUpcoming}`}
+                  aria-current={isNow ? 'step' : undefined}
+                >
+                  <span className={styles.stepMark} aria-hidden="true">
+                    {isDone ? '✓' : i + 1}
+                  </span>
+                  <div className={styles.stepBody}>
+                    <span className={styles.stepTitle}>
+                      {step.title}
+                      {isNow && <span className={styles.youAreHere}>You are here</span>}
+                      {isLastDone && (
+                        <button type="button" className={styles.undo} onClick={() => {
+                            setJustFinished(null);
+                            onUndoStep(lesson.id);
+                          }}
+                        >
+                          Undo
+                        </button>
+                      )}
+                    </span>
+                    <span className={styles.stepDetail}>{step.detail(lesson)}</span>
+                    {isNow && (
+                      <>
+                        <span className={styles.doneWhen}>
+                          <strong>Done when:</strong> {step.doneWhen}
+                        </span>
+                        <button type="button" className={styles.finish} onClick={() => finish(step)}>
+                          ✓ I finished this step
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
 
         <article className={styles.card}>
           <div className={styles.kicker}>
-            {isToday ? "Today's lesson" : done.includes(lesson.id) ? 'Finished lesson' : 'Later lesson'} · {lesson.label}
+            {isToday ? "Today's lesson" : status === 'done' ? 'Finished lesson' : 'Later lesson'} · {lesson.label}
             <span className={styles.where}>built in {lesson.where}</span>
           </div>
           <h2 className={styles.lessonTitle}>{lesson.title}</h2>
@@ -61,33 +142,6 @@ export default function LessonHome({ state, busy, onToggleStep, onAskMore }) {
           </div>
           {!state.settings.apiKey && <p className={styles.note}>"Ask more" uses your OpenRouter key: add it in Settings first.</p>}
         </article>
-
-        <section className={styles.card} aria-label="Steps">
-          <div className={styles.stepsHeader}>
-            <h3 className={styles.sectionTitle}>Steps</h3>
-            <span className={styles.count}>
-              {ticked.length} of {STEPS.length}
-            </span>
-          </div>
-          <ol className={styles.steps}>
-            {STEPS.map((step, i) => {
-              const isTicked = ticked.includes(step.id);
-              return (
-                <li key={step.id} className={`${styles.step} ${isTicked ? styles.stepDone : ''}`}>
-                  <label className={styles.stepLabel}>
-                    <input type="checkbox" checked={isTicked} onChange={() => onToggleStep(lesson.id, step.id)} />
-                    <span>
-                      <span className={styles.stepTitle}>
-                        {i + 1}. {step.title}
-                      </span>
-                      <span className={styles.stepDetail}>{step.detail(lesson)}</span>
-                    </span>
-                  </label>
-                </li>
-              );
-            })}
-          </ol>
-        </section>
 
         <section className={styles.card} aria-label="Your path">
           <h3 className={styles.sectionTitle}>Your path</h3>

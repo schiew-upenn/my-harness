@@ -7,7 +7,7 @@
 //
 // The week list itself (title, what you'll learn, what you'll build) lives in
 // syllabus.js, which mirrors ADR-0003; this file adds the teaching on top.
-import { SYLLABUS } from './syllabus.js';
+import { SYLLABUS, nextLesson } from './syllabus.js';
 
 export const LESSON_TEXT = {
   w1: {
@@ -100,39 +100,96 @@ export function lessonById(id) {
 }
 
 // The session routine (ADR-0006, QST-RULES = C), as every lesson's checklist.
+// `detail` says what to do; `doneWhen` says how you know you can move on.
 export const STEPS = [
-  { id: 'read', title: 'Read this lesson', detail: () => 'You are doing it right now.' },
-  { id: 'learn', title: 'Learn it with Wren', detail: (lesson) => `In VS Code, type in the Claude panel: "${lesson.label}, teach me"` },
-  { id: 'decide', title: 'Decide', detail: () => "Answer the week's 1–2 questions in its record (ADR)." },
-  { id: 'build', title: 'Build and ship', detail: () => 'Build it together. The tests pass, you push, and it is live.' },
-  { id: 'reflect', title: 'Reflect', detail: () => 'Write 2–3 sentences: what you learned, what surprised you.' },
+  {
+    id: 'read',
+    title: 'Read this lesson',
+    detail: () => 'Read the lesson card below, top to bottom.',
+    doneWhen: 'You have read all of it, including "How CS people think about it".',
+  },
+  {
+    id: 'learn',
+    title: 'Learn it with Wren',
+    detail: (lesson) => `In VS Code, type in the Claude panel: "${lesson.label}, teach me"`,
+    doneWhen: 'You can say the main idea in one sentence of your own.',
+  },
+  {
+    id: 'decide',
+    title: 'Decide',
+    detail: () => "Answer the week's 1–2 questions in its record (ADR).",
+    doneWhen: 'Every question for this week has your answer.',
+  },
+  {
+    id: 'build',
+    title: 'Build and ship',
+    detail: () => 'Build it together with Wren, one small piece at a time.',
+    doneWhen: 'The tests pass, it is pushed, and you can see it live.',
+  },
+  {
+    id: 'reflect',
+    title: 'Reflect',
+    detail: () => 'Write 2–3 sentences: what you learned, what surprised you.',
+    doneWhen: 'Your sentences are saved in the week’s record.',
+  },
 ];
 
 const ALL_STEP_IDS = STEPS.map((s) => s.id);
 
-// Which steps of a lesson are ticked. A lesson already marked done (for
-// example, ticked in the old Course panel before steps existed) counts as
-// having every step done.
+// Steps go one at a time, in order (ADR-0006, QST-ONE-AT-A-TIME): you can only
+// finish the step you are on, and the next one opens after it.
+
+// Which steps of a lesson are finished. Only an unbroken run from step 1
+// counts, so progress always reads "steps 1 to N". A lesson already marked
+// done (for example, ticked in the old Course panel) counts as all done.
 export function stepsDone(state, lessonId) {
   if (state.course.done.includes(lessonId)) return ALL_STEP_IDS;
-  return state.course.steps?.[lessonId] ?? [];
+  const saved = state.course.steps?.[lessonId] ?? [];
+  const firstGap = ALL_STEP_IDS.findIndex((id) => !saved.includes(id));
+  return firstGap === -1 ? ALL_STEP_IDS : ALL_STEP_IDS.slice(0, firstGap);
 }
 
-// Tick or untick one step. Ticking the last one finishes the lesson;
-// unticking any step of a finished lesson reopens it.
-export function toggleStep(state, lessonId, stepId) {
-  const current = stepsDone(state, lessonId);
-  const ticked = current.includes(stepId) ? current.filter((s) => s !== stepId) : [...current, stepId];
-  const complete = ALL_STEP_IDS.every((s) => ticked.includes(s));
+// The step you are on now, or null when the lesson is finished.
+export function currentStep(state, lessonId) {
+  const finished = stepsDone(state, lessonId);
+  return STEPS.find((s) => !finished.includes(s.id)) ?? null;
+}
+
+// Lessons also go in order: 'done', 'today' (the first unfinished one), or
+// 'later'. A later lesson can be read ahead, but its steps stay locked.
+export function lessonStatus(state, lessonId) {
+  if (state.course.done.includes(lessonId)) return 'done';
+  return nextLesson(state.course.done)?.id === lessonId ? 'today' : 'later';
+}
+
+function withSteps(state, lessonId, finished) {
+  const complete = finished.length === ALL_STEP_IDS.length;
   const otherDone = state.course.done.filter((d) => d !== lessonId);
   return {
     ...state,
     course: {
       ...state.course,
       done: complete ? [...otherDone, lessonId] : otherDone,
-      steps: { ...state.course.steps, [lessonId]: ALL_STEP_IDS.filter((s) => ticked.includes(s)) },
+      steps: { ...state.course.steps, [lessonId]: finished },
     },
   };
+}
+
+// Finish the step you are on. Finishing step 5 finishes the lesson, and the
+// next lesson becomes today's. Does nothing on a locked (later) lesson.
+export function finishStep(state, lessonId) {
+  if (lessonStatus(state, lessonId) !== 'today') return state;
+  const step = currentStep(state, lessonId);
+  if (!step) return state;
+  return withSteps(state, lessonId, [...stepsDone(state, lessonId), step.id]);
+}
+
+// Take back the last finished step (for a mis-click). On a finished lesson
+// this reopens it at step 5.
+export function undoStep(state, lessonId) {
+  const finished = stepsDone(state, lessonId);
+  if (finished.length === 0) return state;
+  return withSteps(state, lessonId, finished.slice(0, -1));
 }
 
 // The "Ask more" buttons (QST-LESSON-SOURCE = C): each starts a chat that

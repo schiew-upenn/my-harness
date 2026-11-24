@@ -1,6 +1,8 @@
 // The home screen's lessons and steps (docs/adr/0006).
 import { describe, it, expect } from 'vitest';
-import { ASK_MORE, STEPS, askMoreInstructions, lessonById, stepsDone, toggleStep } from './lessons.js';
+import {
+  ASK_MORE, STEPS, askMoreInstructions, currentStep, finishStep, lessonById, lessonStatus, stepsDone, undoStep,
+} from './lessons.js';
 import { SYLLABUS, nextLesson, toggleDone } from './syllabus.js';
 import { emptyState, loadState, saveState, STORAGE_KEY } from './storage.js';
 import { buildRequest } from './openrouter.js';
@@ -10,8 +12,8 @@ function fakeStorage(initial = {}) {
   return { getItem: (k) => (data.has(k) ? data.get(k) : null), setItem: (k, v) => data.set(k, String(v)) };
 }
 
-function tickAll(state, lessonId) {
-  return STEPS.reduce((s, step) => toggleStep(s, lessonId, step.id), state);
+function finishLesson(state, lessonId) {
+  return STEPS.reduce((s) => finishStep(s, lessonId), state);
 }
 
 describe('lesson content', () => {
@@ -24,42 +26,66 @@ describe('lesson content', () => {
       expect(lesson.csView.length, `${week.id} csView`).toBeGreaterThan(40);
     }
   });
+
+  it('every step says how you know it is done, so "can I move on?" always has an answer', () => {
+    for (const step of STEPS) expect(step.doneWhen.length, step.id).toBeGreaterThan(10);
+  });
 });
 
-describe('lesson steps', () => {
-  it('ticking all five steps finishes the lesson, and the next lesson becomes today’s', () => {
-    const s = tickAll(emptyState(), 'w1');
+describe('steps go one at a time (QST-ONE-AT-A-TIME)', () => {
+  it('a new student starts on step 1, with steps 2–5 waiting', () => {
+    expect(currentStep(emptyState(), 'w1').id).toBe('read');
+    expect(stepsDone(emptyState(), 'w1')).toEqual([]);
+  });
+
+  it('finishing a step opens the next one, in order', () => {
+    let s = finishStep(emptyState(), 'w1');
+    expect(stepsDone(s, 'w1')).toEqual(['read']);
+    expect(currentStep(s, 'w1').id).toBe('learn');
+    s = finishStep(s, 'w1');
+    expect(currentStep(s, 'w1').id).toBe('decide');
+  });
+
+  it('finishing all five steps finishes the lesson, and the next lesson becomes today’s', () => {
+    const s = finishLesson(emptyState(), 'w1');
     expect(s.course.done).toContain('w1');
-    expect(nextLesson(s.course.done).id).toBe('w2');
+    expect(lessonStatus(s, 'w1')).toBe('done');
+    expect(lessonStatus(s, 'w2')).toBe('today');
+    expect(currentStep(s, 'w2').id).toBe('read');
   });
 
-  it('ticking some steps shows progress but does not finish the lesson', () => {
-    let s = toggleStep(emptyState(), 'w1', 'read');
-    s = toggleStep(s, 'w1', 'learn');
-    expect(stepsDone(s, 'w1')).toEqual(['read', 'learn']);
-    expect(s.course.done).not.toContain('w1');
-    expect(nextLesson(s.course.done).id).toBe('w1');
+  it('a later lesson can be read but its steps stay locked until the earlier one is finished', () => {
+    const s = emptyState();
+    expect(lessonStatus(s, 'w2')).toBe('later');
+    expect(finishStep(s, 'w2')).toBe(s);
   });
 
-  it('unticking a step of a finished lesson reopens it', () => {
-    let s = tickAll(emptyState(), 'w1');
-    s = toggleStep(s, 'w1', 'reflect');
+  it('Undo takes back only the last finished step (for a mis-click)', () => {
+    let s = finishStep(finishStep(emptyState(), 'w1'), 'w1');
+    s = undoStep(s, 'w1');
+    expect(stepsDone(s, 'w1')).toEqual(['read']);
+    expect(currentStep(s, 'w1').id).toBe('learn');
+  });
+
+  it('Undo on a finished lesson reopens it at step 5', () => {
+    const s = undoStep(finishLesson(emptyState(), 'w1'), 'w1');
     expect(s.course.done).not.toContain('w1');
-    expect(stepsDone(s, 'w1')).toHaveLength(STEPS.length - 1);
+    expect(lessonStatus(s, 'w1')).toBe('today');
+    expect(currentStep(s, 'w1').id).toBe('reflect');
     expect(nextLesson(s.course.done).id).toBe('w1');
   });
 
   it('a lesson ticked off in the old Course panel shows all its steps done', () => {
     // The old panel stored only "done" weeks, no steps. Those weeks must not
-    // suddenly look 0-of-5 on the new home screen.
+    // suddenly look 0-of-5 on the home screen.
     const s = toggleDone(emptyState(), 'w1');
     expect(stepsDone(s, 'w1')).toHaveLength(STEPS.length);
   });
 
-  it('steps are still ticked after the page is reloaded', () => {
+  it('steps are still finished after the page is reloaded', () => {
     const storage = fakeStorage();
-    saveState(storage, toggleStep(emptyState(), 'w2', 'read'));
-    expect(stepsDone(loadState(storage), 'w2')).toEqual(['read']);
+    saveState(storage, finishStep(emptyState(), 'w1'));
+    expect(stepsDone(loadState(storage), 'w1')).toEqual(['read']);
   });
 });
 
@@ -97,5 +123,15 @@ describe('Regression tests', () => {
     expect(state.course.steps).toEqual({});
     expect(state.course.done).toEqual(['w1']);
     expect(stepsDone(state, 'w2')).toEqual([]);
+  });
+
+  it('steps ticked out of order in the checkbox version count only up to the first gap', () => {
+    // The 2026-11-19 checkbox version let any step be ticked in any order, so
+    // saved data can hold e.g. steps 1 and 4 with 2 and 3 empty. With steps in
+    // order, that must read as "step 1 done, you are on step 2", not as a
+    // checklist with holes in it.
+    const s = { ...emptyState(), course: { done: [], steps: { w1: ['read', 'build'] } } };
+    expect(stepsDone(s, 'w1')).toEqual(['read']);
+    expect(currentStep(s, 'w1').id).toBe('learn');
   });
 });

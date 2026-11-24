@@ -26,7 +26,7 @@ export const ACHIEVEMENTS = [
     id: 'first-step',
     icon: '👣',
     name: 'First step',
-    how: 'Tick your first lesson step.',
+    how: 'Finish your first lesson step.',
     earned: (s) => s.course.done.length > 0 || Object.values(s.course.steps ?? {}).some((ids) => ids.length > 0),
   },
   ...SYLLABUS.map((w) => ({
