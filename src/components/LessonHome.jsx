@@ -87,7 +87,7 @@ export default function LessonHome({ state, busy, onFinishStep, onUndoStep, onAs
                   </span>
                   <div className={styles.stepBody}>
                     <span className={styles.stepTitle}>
-                      {step.title}
+                      <span className={styles.stepName}>{step.title}</span>
                       {isNow && <span className={styles.youAreHere}>You are here</span>}
                       {isLastDone && (
                         <button type="button" className={styles.undo} onClick={() => {

@@ -111,7 +111,8 @@ export const STEPS = [
   {
     id: 'learn',
     title: 'Learn it with Wren',
-    detail: (lesson) => `In VS Code, type in the Claude panel: "${lesson.label}, teach me"`,
+    detail: (lesson) =>
+      `In VS Code, open the my-harness folder and the Claude chat panel (where you talk to Wren), then type: "${lesson.label}, teach me". Wren teaches it right there and ends with one check question.`,
     doneWhen: 'You can say the main idea in one sentence of your own.',
   },
   {
